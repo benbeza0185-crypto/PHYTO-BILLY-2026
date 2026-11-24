@@ -7,843 +7,657 @@
 <title>PHYTO-NET | Smart Plant Care</title>
 
 <style>
-:root{
- --bg:#e5f0e9;
- --glass:rgba(255,255,255,.53);
- --card:#ffffff;
- --text:#17271e;
- --muted:#607568;
- --green:#55c500;
- --deep:#17633c;
- --border:rgba(255,255,255,.7);
+:root {
+  --bg:#e5f0e9;
+  --card:#ffffff;
+  --text:#17271e;
+  --green:#167a45;
+  --green2:#0c5630;
+  --muted:#64766a;
+  --border:#d5e4d9;
 }
-body.dark{
- --bg:#101b15;
- --glass:rgba(27,48,35,.78);
- --card:#1b2c21;
- --text:#eff8f0;
- --muted:#b0c3b5;
- --green:#70db42;
- --deep:#6edb99;
- --border:rgba(255,255,255,.13);
+body.dark {
+  --bg:#101c15;
+  --card:#1c2c22;
+  --text:#eef8f0;
+  --green:#55c982;
+  --green2:#26975a;
+  --muted:#b3c5b8;
+  --border:#344b3a;
 }
-*{box-sizing:border-box}
-html{scroll-behavior:smooth}
-body{
- margin:0;
- font-family:Arial,sans-serif;
- color:var(--text);
- background:var(--bg);
- transition:.3s;
+* {box-sizing:border-box}
+body {
+  margin:0;
+  font-family:Arial,sans-serif;
+  background:var(--bg);
+  color:var(--text);
+  transition:.3s;
 }
-button,input{font:inherit}
-button{cursor:pointer}
-a{text-decoration:none;color:inherit}
-.page{
- max-width:1450px;
- margin:25px auto;
- padding:25px;
- min-height:90vh;
- border:2px solid var(--border);
- border-radius:22px;
- background:
- linear-gradient(120deg,rgba(220,242,228,.6),rgba(255,255,255,.12)),
- radial-gradient(ellipse at bottom,#83b94b,#c9e0d2 65%);
- box-shadow:0 15px 45px #173b2518;
- position:relative;
- overflow:hidden;
+header {
+  background:var(--card);
+  padding:16px 5%;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  flex-wrap:wrap;
+  gap:12px;
+  border-bottom:1px solid var(--border);
+  position:sticky;
+  top:0;
+  z-index:10;
 }
-.dark .page{
- background:
- linear-gradient(120deg,rgba(20,43,29,.85),rgba(12,25,18,.75)),
- radial-gradient(ellipse at bottom,#284b32,#13251a 65%);
+.logo {
+  font-size:25px;
+  font-weight:bold;
+  color:var(--green);
 }
-header{
- display:flex;
- align-items:center;
- gap:22px;
- flex-wrap:wrap;
- position:relative;
- z-index:3;
+nav {
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
 }
-.logo{
- font-size:25px;
- font-weight:900;
- color:var(--deep);
- letter-spacing:1px;
+button {
+  border:0;
+  padding:11px 15px;
+  border-radius:9px;
+  cursor:pointer;
+  background:var(--green);
+  color:white;
+  font-weight:bold;
 }
-.logo span{color:var(--green)}
-nav{
- display:flex;
- gap:22px;
- margin:auto;
- padding:12px 25px;
- border:1px solid var(--border);
- border-radius:30px;
- background:var(--glass);
- backdrop-filter:blur(15px);
+button:hover {opacity:.85}
+nav button {
+  background:transparent;
+  color:var(--text);
 }
-nav a{font-size:13px;color:var(--muted)}
-nav a:hover{color:var(--green);font-weight:bold}
-.headerActions{display:flex;gap:9px}
-.smallBtn{
- border:1px solid var(--border);
- background:var(--glass);
- color:var(--text);
- border-radius:25px;
- padding:10px 15px;
+nav button.active {
+  background:var(--green);
+  color:white;
 }
-.hero{
- display:grid;
- grid-template-columns:1.4fr .9fr;
- gap:22px;
- margin-top:45px;
- position:relative;
- z-index:2;
+.container {
+  width:90%;
+  max-width:1150px;
+  margin:25px auto;
 }
-.hero h1{
- font-size:clamp(34px,5vw,58px);
- line-height:1.08;
- margin:12px 0;
+.page {display:none}
+.page.active {display:block}
+.hero {
+  background:linear-gradient(120deg,#0c5630,#249b58);
+  color:white;
+  border-radius:20px;
+  padding:55px 30px;
+  text-align:center;
 }
-.heroText p{color:var(--muted)}
-.plantStage{
- min-height:470px;
- display:flex;
- align-items:center;
- justify-content:center;
- position:relative;
+.hero h1 {font-size:42px;margin:0 0 15px}
+.hero p {font-size:18px;line-height:1.6}
+.card {
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:15px;
+  padding:22px;
+  margin:15px 0;
 }
-.plantCircle{
- position:absolute;
- width:320px;
- height:320px;
- border:22px solid rgba(255,255,255,.28);
- border-radius:50%;
+.grid {
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  gap:16px;
 }
-.bigPlant{
- font-size:220px;
- filter:drop-shadow(0 20px 12px #263b2540);
- z-index:1;
+input,textarea,select {
+  width:100%;
+  padding:13px;
+  margin:8px 0;
+  border:1px solid var(--border);
+  border-radius:9px;
+  background:var(--card);
+  color:var(--text);
+  font-size:16px;
 }
-.pot{
- position:absolute;
- bottom:25px;
- width:175px;
- height:165px;
- border-radius:15px 15px 65px 65px;
- background:linear-gradient(90deg,#c7d0d0,#fff,#c2cccc);
- box-shadow:0 22px 25px #172b2540;
+.plant-image {
+  width:100%;
+  max-height:260px;
+  object-fit:cover;
+  border-radius:12px;
 }
-.plantLabel{
- position:absolute;
- top:52%;
- right:0;
- background:var(--glass);
- backdrop-filter:blur(10px);
- padding:12px;
- border-radius:12px;
- font-size:12px;
+.muted {color:var(--muted)}
+.result {
+  padding:15px;
+  border-bottom:1px solid var(--border);
 }
-.sidePanels{
- display:flex;
- flex-direction:column;
- gap:14px;
+.result button {margin-top:8px}
+.tag {
+  display:inline-block;
+  background:#d9f2e1;
+  color:#145c32;
+  padding:5px 9px;
+  border-radius:20px;
+  margin:4px;
+  font-size:13px;
 }
-.panel{
- background:var(--glass);
- backdrop-filter:blur(16px);
- border:1px solid var(--border);
- border-radius:22px;
- padding:20px;
- box-shadow:0 12px 30px #163d2410;
+body.dark .tag {
+  background:#294a35;
+  color:#c8f5d5;
 }
-.growth{
- background:var(--green);
- color:white;
- min-height:275px;
+footer {
+  text-align:center;
+  padding:30px;
+  color:var(--muted);
 }
-.panel h2,.panel h3{margin:0 0 12px}
-.chart{
- width:100%;
- height:130px;
- margin-top:20px;
-}
-.chart svg{width:100%;height:100%;overflow:visible}
-.months{
- display:flex;
- justify-content:space-between;
- font-size:12px;
-}
-.healthGrid{
- display:grid;
- grid-template-columns:1fr 1fr;
- gap:10px;
-}
-.healthItem{
- border:1px solid var(--border);
- border-radius:13px;
- padding:11px;
- font-size:13px;
- background:rgba(255,255,255,.12);
-}
-.analysisWave{
- display:flex;
- align-items:center;
- justify-content:center;
- gap:4px;
- height:70px;
-}
-.analysisWave span{
- width:4px;
- border-radius:8px;
- background:var(--text);
- height:15px;
-}
-.analysisWave span:nth-child(3n){height:38px}
-.analysisWave span:nth-child(4n){height:53px}
-.analysisWave span:nth-child(5n){height:25px}
-.section{
- position:relative;
- z-index:2;
- margin-top:55px;
-}
-.sectionTitle{
- display:flex;
- justify-content:space-between;
- align-items:center;
- gap:12px;
- flex-wrap:wrap;
- margin-bottom:17px;
-}
-.sectionTitle h2{margin:0;font-size:27px}
-.sectionTitle p{color:var(--muted);margin:5px 0}
-.grid{
- display:grid;
- grid-template-columns:repeat(3,1fr);
- gap:15px;
-}
-.card{
- background:var(--glass);
- border:1px solid var(--border);
- border-radius:18px;
- padding:20px;
- backdrop-filter:blur(12px);
-}
-.card h3{margin:8px 0}
-.card p{color:var(--muted);font-size:14px}
-.cardIcon{font-size:35px}
-.btn{
- border:0;
- border-radius:12px;
- background:var(--green);
- color:#17351e;
- padding:11px 16px;
- font-weight:bold;
-}
-.btn:hover{filter:brightness(1.08)}
-.secondary{
- background:var(--glass);
- border:1px solid var(--border);
- color:var(--text);
-}
-.searchBar{
- display:flex;
- gap:10px;
- margin-bottom:18px;
-}
-input{
- border:1px solid var(--border);
- border-radius:12px;
- padding:12px;
- background:var(--glass);
- color:var(--text);
- width:100%;
-}
-.plantCard{
- display:flex;
- flex-direction:column;
- gap:8px;
-}
-.plantEmoji{font-size:45px}
-.tag{
- display:inline-block;
- padding:5px 10px;
- border-radius:20px;
- background:rgba(85,197,0,.15);
- color:var(--deep);
- font-size:11px;
- font-weight:bold;
-}
-.daily{
- display:grid;
- grid-template-columns:1.5fr 1fr;
- gap:15px;
-}
-.article{
- background:var(--glass);
- border:1px solid var(--border);
- border-radius:18px;
- padding:25px;
-}
-.article h3{font-size:24px}
-.article p{color:var(--muted)}
-.chat{
- height:260px;
- overflow:auto;
- padding:12px;
- background:var(--glass);
- border-radius:14px;
- margin-bottom:12px;
-}
-.message{
- padding:10px 13px;
- border-radius:13px;
- margin:8px 0;
- max-width:90%;
- white-space:pre-wrap;
-}
-.bot{background:rgba(85,197,0,.17)}
-.user{
- background:var(--deep);
- color:white;
- margin-left:auto;
-}
-.chatInput{display:flex;gap:8px}
-.chatInput input{flex:1;min-width:0}
-.stat{
- font-size:30px;
- font-weight:bold;
- color:var(--deep);
-}
-footer{
- text-align:center;
- color:var(--muted);
- padding:35px 10px 10px;
- position:relative;
- z-index:2;
-}
-.hidden{display:none}
-@media(max-width:850px){
- .hero{grid-template-columns:1fr}
- .grid{grid-template-columns:1fr 1fr}
- .daily{grid-template-columns:1fr}
- nav{order:3;width:100%;justify-content:center;flex-wrap:wrap}
-}
-@media(max-width:550px){
- .page{margin:0;padding:15px;border-radius:0}
- .grid{grid-template-columns:1fr}
- .plantStage{min-height:360px}
- .bigPlant{font-size:165px}
- .plantCircle{width:230px;height:230px}
- .pot{width:140px;height:120px}
- .healthGrid{grid-template-columns:1fr 1fr}
- .hero h1{font-size:37px}
-}
+.hidden {display:none}
 </style>
 </head>
 
 <body>
-<div class="page">
 
 <header>
- <a class="logo" href="#home">🌱 PHYTO<span>-NET</span></a>
-
- <nav>
-  <a href="#home">Home</a>
-  <a href="#plants">My Plants</a>
-  <a href="#daily">Daily Article</a>
-  <a href="#assistant">Plant AI</a>
-  <a href="#about">About</a>
- </nav>
-
- <div class="headerActions">
-  <button class="smallBtn" onclick="toggleTheme()" id="themeButton">🌙 Dark</button>
-  <button class="smallBtn" onclick="showSaved()">☆ Saved</button>
- </div>
+  <div class="logo">🌿 PHYTO-NET</div>
+  <nav>
+    <button class="active" onclick="showPage('home',this)">Home</button>
+    <button onclick="showPage('library',this)">Plant Library</button>
+    <button onclick="showPage('health',this)">Plant Health</button>
+    <button onclick="showPage('assistant',this)">Plant Assistant</button>
+    <button onclick="showPage('monitor',this)">Monitoring</button>
+    <button onclick="showPage('about',this)">About</button>
+    <button onclick="showPage('account',this)">Account</button>
+    <button onclick="toggleTheme()">☀ / 🌙</button>
+  </nav>
 </header>
 
-<main id="home">
+<main class="container">
 
-<section class="hero">
-
- <div class="heroText">
-  <span class="tag">SMART PLANT CARE PLATFORM</span>
-  <h1>Grow healthier.<br>Think greener.</h1>
-  <p>Discover plants, understand their health and monitor their growth with PHYTO-NET technology.</p>
-  <a href="#plants"><button class="btn">Explore My Plants →</button></a>
-  <a href="#assistant"><button class="btn secondary">Ask Plant AI</button></a>
-
-  <div class="plantStage">
-   <div class="plantCircle"></div>
-   <div class="bigPlant">🪴</div>
-   <div class="pot"></div>
-   <div class="plantLabel">PLANT GROWTH<br><b>Healthy development</b></div>
-  </div>
- </div>
-
- <div class="sidePanels">
-
-  <div class="panel growth">
-   <div class="sectionTitle">
-    <h2>Growth Analysis</h2>
-    <span>Monthly</span>
-   </div>
-   <p>Plant growth overview</p>
-   <div class="chart">
-    <svg viewBox="0 0 400 130" preserveAspectRatio="none">
-     <defs>
-      <linearGradient id="chartFill" x1="0" y1="0" x2="0" y2="1">
-       <stop offset="0%" stop-color="white" stop-opacity=".75"/>
-       <stop offset="100%" stop-color="white" stop-opacity=".05"/>
-      </linearGradient>
-     </defs>
-     <path d="M0 110 Q35 105 55 75 T120 90 T190 50 T260 65 T330 25 T400 48 L400 130 L0 130Z" fill="url(#chartFill)"/>
-     <path d="M0 110 Q35 105 55 75 T120 90 T190 50 T260 65 T330 25 T400 48" fill="none" stroke="white" stroke-width="3"/>
-    </svg>
-   </div>
-   <div class="months">
-    <span>Jan</span><span>Feb</span><span>Mar</span>
-    <span>Apr</span><span>May</span><span>Jun</span>
-   </div>
+<!-- HOME -->
+<section id="home" class="page active">
+  <div class="hero">
+    <h1>Welcome to PHYTO-NET</h1>
+    <p>
+      Discover plants, learn about their health,
+      and explore smart technology for plant care.
+    </p>
+    <button onclick="showPage('library')">Explore Plants</button>
+    <button onclick="showPage('monitor')">Smart Monitoring</button>
   </div>
 
-  <div class="panel">
-   <h2>Plant Health</h2>
-   <div class="healthGrid">
-    <div class="healthItem">💧 Water level<br><b id="waterHealth">Waiting</b></div>
-    <div class="healthItem">☀️ Light<br><b>Check sunlight</b></div>
-    <div class="healthItem">〰 Humidity<br><b id="humidityHealth">--</b></div>
-    <div class="healthItem">🍃 Soil<br><b>Monitor soil</b></div>
-   </div>
-
-   <h3 style="margin-top:22px">Smart Analysis</h3>
-   <p>Plant-care learning and monitoring</p>
-   <div class="analysisWave" id="wave"></div>
-   <small>PHYTO-NET monitoring centre</small>
+  <div class="grid">
+    <div class="card">
+      <h2>🌱 Plant Library</h2>
+      <p>Search for plants using common or scientific names.</p>
+      <button onclick="showPage('library')">Explore</button>
+    </div>
+    <div class="card">
+      <h2>🩺 Plant Health</h2>
+      <p>Learn about plant care and common plant problems.</p>
+      <button onclick="showPage('health')">Learn More</button>
+    </div>
+    <div class="card">
+      <h2>🤖 Plant Assistant</h2>
+      <p>Ask educational questions about plants.</p>
+      <button onclick="showPage('assistant')">Ask Assistant</button>
+    </div>
+    <div class="card">
+      <h2>📡 Smart Monitoring</h2>
+      <p>Connect to an Arduino using a supported USB connection.</p>
+      <button onclick="showPage('monitor')">Open Monitoring</button>
+    </div>
   </div>
-
- </div>
 </section>
 
-<section class="section" id="daily">
- <div class="sectionTitle">
-  <div>
-   <h2>🌞 Something of the Day</h2>
-   <p>Discover a new plant lesson every day.</p>
-  </div>
-  <span class="tag">DAILY KNOWLEDGE</span>
- </div>
+<!-- PLANT LIBRARY -->
+<section id="library" class="page">
+  <h1>🌿 Global Plant Library</h1>
+  <p class="muted">
+    Search the GBIF scientific species database.
+    Information and photographs depend on available records.
+  </p>
 
- <div class="daily">
-  <div class="article">
-   <span class="tag">ARTICLE OF THE DAY</span>
-   <h3 id="articleTitle">Why plants need healthy soil</h3>
-   <p id="articleText">Healthy soil provides plants with water, air and nutrients. It also contains organisms that help break down organic matter.</p>
-   <p id="articleTip"><b>Today's tip:</b> Protect your soil from erosion and add suitable organic matter.</p>
-   <button class="btn" onclick="nextArticle()">Another article →</button>
+  <div class="card">
+    <input id="plantSearch"
+      placeholder="Enter a plant name, e.g. Tomato or Zea mays">
+    <button onclick="searchPlants()">Search Plants</button>
+    <p id="searchStatus" class="muted"></p>
   </div>
 
-  <div class="article">
-   <span class="tag">DID YOU KNOW?</span>
-   <h3>🌿 Plant fact</h3>
-   <p id="plantFact">Plants use sunlight to make their food through photosynthesis.</p>
+  <div id="plantResults" class="card">
+    Search for a plant to see results.
   </div>
- </div>
+
+  <div id="plantDetails" class="card hidden"></div>
 </section>
 
-<section class="section" id="plants">
- <div class="sectionTitle">
-  <div>
-   <h2>🌱 Plant Library</h2>
-   <p>Search and discover plants.</p>
+<!-- PLANT HEALTH -->
+<section id="health" class="page">
+  <h1>🩺 Plant Health Centre</h1>
+
+  <div class="grid">
+    <div class="card">
+      <h2>💧 Watering</h2>
+      <p>Plants need water for photosynthesis and other life processes.
+      Avoid both underwatering and overwatering.</p>
+    </div>
+    <div class="card">
+      <h2>☀️ Sunlight</h2>
+      <p>Different plants need different amounts of sunlight.
+      Check the needs of each plant species.</p>
+    </div>
+    <div class="card">
+      <h2>🌱 Soil</h2>
+      <p>Healthy soil provides water, air and nutrients to plant roots.</p>
+    </div>
+    <div class="card">
+      <h2>🐛 Pests</h2>
+      <p>Inspect leaves and stems regularly.
+      Ask a qualified agricultural adviser about serious pest problems.</p>
+    </div>
+    <div class="card">
+      <h2>🌡️ Temperature</h2>
+      <p>Plants have different temperature requirements.
+      Extreme conditions can affect growth.</p>
+    </div>
+    <div class="card">
+      <h2>🌾 Nutrients</h2>
+      <p>Nutrients such as nitrogen, phosphorus and potassium
+      support plant growth.</p>
+    </div>
   </div>
- </div>
-
- <div class="searchBar">
-  <input id="plantSearch" placeholder="Search tomato, maize, beans, banana..." oninput="searchPlants()">
-  <button class="btn" onclick="searchPlants()">Search</button>
- </div>
-
- <div class="grid" id="plantResults"></div>
 </section>
 
-<section class="section" id="saved">
- <div class="sectionTitle">
-  <div>
-   <h2>⭐ My Saved Plants</h2>
-   <p>Your favourite plants saved in this browser.</p>
+<!-- ASSISTANT -->
+<section id="assistant" class="page">
+  <h1>🤖 PHYTO-NET Plant Assistant</h1>
+  <div class="card">
+    <p>
+      This is an educational demonstration assistant.
+      It is not a real AI model and cannot diagnose every plant problem.
+    </p>
+    <div id="chatMessages" class="card">
+      <p><b>Assistant:</b> Hello! Ask me a basic question about plants.</p>
+    </div>
+    <input id="question" placeholder="Ask about plants...">
+    <button onclick="askAssistant()">Send Question</button>
   </div>
- </div>
- <div class="grid" id="savedResults"></div>
 </section>
 
-<section class="section" id="health">
- <div class="sectionTitle">
-  <div>
-   <h2>🩺 Plant Health Centre</h2>
-   <p>Learn about common plant problems.</p>
+<!-- MONITORING -->
+<section id="monitor" class="page">
+  <h1>📡 Smart Plant Monitoring</h1>
+  <div class="card">
+    <p>
+      Connect your Arduino UNO using USB.
+      Your Arduino program must send JSON data at 9600 baud.
+    </p>
+    <button onclick="connectArduino()">Connect Arduino</button>
+    <button onclick="disconnectArduino()">Disconnect</button>
+    <p id="connectionStatus" class="muted">Not connected.</p>
   </div>
- </div>
 
- <div class="grid">
-  <div class="card">
-   <div class="cardIcon">🍂</div>
-   <h3>Yellow leaves</h3>
-   <p>Possible causes include watering problems, nutrient shortages, pests or natural ageing. Check the whole plant before deciding.</p>
+  <div class="grid">
+    <div class="card">
+      <h2>💧 Soil Moisture</h2>
+      <h1 id="soilValue">--</h1>
+    </div>
+    <div class="card">
+      <h2>🌡️ Temperature</h2>
+      <h1 id="temperatureValue">--</h1>
+    </div>
+    <div class="card">
+      <h2>💨 Humidity</h2>
+      <h1 id="humidityValue">--</h1>
+    </div>
   </div>
+
   <div class="card">
-   <div class="cardIcon">⚪</div>
-   <h3>Powdery mildew</h3>
-   <p>A fungal disease that may look like white powder on leaves. Improve airflow and seek local agricultural advice if it spreads.</p>
+    <h2>Arduino data</h2>
+    <p id="rawData" class="muted">Waiting for data...</p>
   </div>
-  <div class="card">
-   <div class="cardIcon">💧</div>
-   <h3>Root rot</h3>
-   <p>Roots can be damaged when soil remains waterlogged. Use suitable drainage and avoid excessive watering.</p>
-  </div>
-  <div class="card">
-   <div class="cardIcon">🐛</div>
-   <h3>Pests</h3>
-   <p>Inspect leaves for holes, insects and unusual marks. Identify the pest before choosing a control method.</p>
-  </div>
-  <div class="card">
-   <div class="cardIcon">☀️</div>
-   <h3>Water stress</h3>
-   <p>Wilting may indicate water stress, but can have other causes. Check soil moisture before watering.</p>
-  </div>
-  <div class="card">
-   <div class="cardIcon">🌱</div>
-   <h3>Nutrient problems</h3>
-   <p>Nutrient shortages can affect leaf colour and growth. Good soil management and suitable compost can help.</p>
-  </div>
- </div>
 </section>
 
-<section class="section" id="nutrition">
- <div class="sectionTitle">
-  <div>
-   <h2>🌾 Plant Nutrition</h2>
-   <p>Understand what plants need to grow.</p>
-  </div>
- </div>
- <div class="grid">
-  <div class="card"><h3>Nitrogen</h3><p>Supports leafy growth and is an important part of proteins.</p></div>
-  <div class="card"><h3>Phosphorus</h3><p>Helps energy transfer and supports root and reproductive development.</p></div>
-  <div class="card"><h3>Potassium</h3><p>Helps regulate water balance and supports many plant functions.</p></div>
- </div>
-</section>
-
-<section class="section" id="rwanda">
- <div class="sectionTitle">
-  <div>
-   <h2>🇷🇼 Plants of Rwanda</h2>
-   <p>Explore crops and useful plants grown in Rwanda.</p>
-  </div>
- </div>
- <div class="grid">
-  <div class="card"><div class="cardIcon">☕</div><h3>Arabica coffee</h3><p>An important cash crop grown in suitable highland areas.</p></div>
-  <div class="card"><div class="cardIcon">🍌</div><h3>Banana</h3><p>A widely grown food crop used in many Rwandan communities.</p></div>
-  <div class="card"><div class="cardIcon">🫘</div><h3>Beans</h3><p>An important source of food and plant protein.</p></div>
-  <div class="card"><div class="cardIcon">🌽</div><h3>Maize</h3><p>A cereal crop grown for food and other uses.</p></div>
-  <div class="card"><div class="cardIcon">🥑</div><h3>Avocado</h3><p>A fruit tree that needs suitable soil and careful watering.</p></div>
-  <div class="card"><div class="cardIcon">🍠</div><h3>Sweet potato</h3><p>A root crop grown for its nutritious storage roots.</p></div>
- </div>
-</section>
-
-<section class="section" id="assistant">
- <div class="sectionTitle">
-  <div>
-   <h2>🤖 PHYTO-NET AI Assistant</h2>
-   <p>Your plant-care learning assistant.</p>
-  </div>
-  <span class="tag">BASIC DEMO</span>
- </div>
-
- <div class="card">
-  <div class="chat" id="chat">
-   <div class="message bot">Hello! Welcome to PHYTO-NET. Ask me about plants, soil, sunlight, watering, maize, beans or tomato.</div>
-  </div>
-  <div class="chatInput">
-   <input id="chatInput" placeholder="Ask a plant question..." onkeydown="if(event.key==='Enter')sendMessage()">
-   <button class="btn" onclick="sendMessage()">Send</button>
-  </div>
-  <p style="font-size:12px;color:var(--muted)">This is a built-in demonstration assistant using prepared answers. It is not yet connected to a real online AI service. It cannot diagnose plant diseases reliably.</p>
- </div>
-</section>
-
-<section class="section" id="monitor">
- <div class="sectionTitle">
-  <div>
-   <h2>📡 Smart Monitoring Centre</h2>
-   <p>Future connection to your Arduino UNO prototype.</p>
-  </div>
-  <span class="tag">PHYTO-BILLY-2026</span>
- </div>
-
- <div class="grid">
+<!-- ABOUT -->
+<section id="about" class="page">
+  <h1>About PHYTO-NET</h1>
   <div class="card">
-   <h3>Soil Moisture</h3>
-   <div class="stat" id="soilValue">--</div>
-   <p>Sensor reading</p>
+    <h2>Our mission</h2>
+    <p>
+      PHYTO-NET is a plant information and smart plant-care project.
+      It aims to combine technology, science and agriculture
+      to help people understand and care for plants.
+    </p>
+    <h2>PHYTO-BILLY-2026</h2>
+    <p>Project title: Phyto-Net Autonomous Cyber-Clinic.</p>
+    <p>
+      The physical prototype uses an Arduino UNO and sensors
+      to monitor plant conditions and support automatic irrigation.
+    </p>
+    <h2>Information sources</h2>
+    <p><a href="https://www.gbif.org/" target="_blank">GBIF</a></p>
+    <p><a href="https://www.inaturalist.org/" target="_blank">iNaturalist</a></p>
   </div>
-  <div class="card">
-   <h3>Temperature</h3>
-   <div class="stat" id="tempValue">-- °C</div>
-   <p>DHT11 sensor</p>
-  </div>
-  <div class="card">
-   <h3>Air Humidity</h3>
-   <div class="stat" id="humValue">-- %</div>
-   <p>DHT11 sensor</p>
-  </div>
- </div>
-
- <div class="card" style="margin-top:15px">
-  <h3>Connect Arduino by USB</h3>
-  <p>For a future computer connection, the Arduino can send JSON data through USB serial.</p>
-  <button class="btn" onclick="connectArduino()">Connect Arduino</button>
-  <p id="connectionStatus">Not connected</p>
-  <small>Example data: {"soil":450,"temperature":25,"humidity":65}</small>
- </div>
 </section>
 
-<section class="section" id="about">
- <div class="sectionTitle">
-  <div>
-   <h2>About PHYTO-NET</h2>
-   <p>A student innovation project from Rwanda.</p>
+<!-- ACCOUNT -->
+<section id="account" class="page">
+  <h1>👤 PHYTO-NET Account</h1>
+  <div class="card">
+    <p>
+      Account sign-in is a preview only.
+      Real accounts require a secure authentication service.
+    </p>
+    <input type="email" placeholder="Email address">
+    <input type="password" placeholder="Password">
+    <button onclick="alert('Account sign-in is not activated yet. A secure authentication service is required.')">
+      Sign In
+    </button>
+    <button onclick="alert('Account registration is not activated yet.')">
+      Create Account
+    </button>
   </div>
- </div>
- <div class="card">
-  <h3>Our mission 🌍</h3>
-  <p>PHYTO-NET aims to make plant knowledge easier to explore and support smarter plant care through technology, education and the PHYTO-BILLY-2026 prototype.</p>
-  <p>Our long-term goal is to connect plant information with real sensor readings from an Arduino-based plant-care system.</p>
- </div>
 </section>
 
 </main>
 
 <footer>
- <h2>🌱 PHYTO-NET</h2>
- Plant knowledge • Smart care • A greener future
- <p>© <span id="year"></span> PHYTO-NET. Student innovation project.</p>
+  <p>🌿 PHYTO-NET | PHYTO-BILLY-2026</p>
+  <p>Learning about plants through science and technology.</p>
 </footer>
 
-</div>
-
 <script>
-const plants=[
- {name:"Tomato",emoji:"🍅",type:"Vegetable",info:"Tomatoes need suitable sunlight, well-drained soil and regular watering."},
- {name:"Maize",emoji:"🌽",type:"Cereal",info:"Maize needs sunlight, nutrients, space and sufficient water."},
- {name:"Beans",emoji:"🫘",type:"Legume",info:"Beans are legumes. Some varieties climb while others grow as bushes."},
- {name:"Carrot",emoji:"🥕",type:"Root crop",info:"Carrots grow well in loose soil that allows roots to develop."},
- {name:"Banana",emoji:"🍌",type:"Fruit crop",info:"Bananas need warmth, moisture and nutrients."},
- {name:"Avocado",emoji:"🥑",type:"Fruit tree",info:"Avocados need well-drained soil and careful watering."},
- {name:"Coffee",emoji:"☕",type:"Cash crop",info:"Arabica coffee grows in suitable cool tropical highland conditions."},
- {name:"Mango",emoji:"🥭",type:"Fruit tree",info:"Mango trees need sunlight and suitable soil."},
- {name:"Potato",emoji:"🥔",type:"Tuber crop",info:"Potatoes grow from seed tubers and need suitable soil and moisture."},
- {name:"Sweet potato",emoji:"🍠",type:"Root crop",info:"Sweet potato is a nutritious root crop."}
-];
+/* PAGE NAVIGATION */
+function showPage(page, button) {
+  document.querySelectorAll('.page').forEach(p => {
+    p.classList.remove('active');
+  });
 
-function renderPlants(list,target){
- const area=document.getElementById(target);
- area.innerHTML="";
- if(!list.length){area.textContent="No plants found.";return;}
- list.forEach(p=>{
-  const div=document.createElement("div");
-  div.className="card plantCard";
-  const emoji=document.createElement("div");
-  emoji.className="plantEmoji";
-  emoji.textContent=p.emoji;
-  const title=document.createElement("h3");
-  title.textContent=p.name;
-  const tag=document.createElement("span");
-  tag.className="tag";
-  tag.textContent=p.type;
-  const desc=document.createElement("p");
-  desc.textContent=p.info;
-  const button=document.createElement("button");
-  button.className="btn secondary";
-  button.textContent="☆ Save plant";
-  button.onclick=()=>savePlant(p.name);
-  div.append(emoji,title,tag,desc,button);
-  area.appendChild(div);
- });
+  document.getElementById(page).classList.add('active');
+
+  document.querySelectorAll('nav button').forEach(b => {
+    b.classList.remove('active');
+  });
+
+  if(button) button.classList.add('active');
+
+  window.scrollTo(0,0);
 }
 
-function searchPlants(){
- const q=document.getElementById("plantSearch").value.toLowerCase();
- renderPlants(plants.filter(p=>(p.name+" "+p.type).toLowerCase().includes(q)),"plantResults");
+/* THEME */
+function toggleTheme() {
+  document.body.classList.toggle('dark');
 }
 
-function savePlant(name){
- let saved=JSON.parse(localStorage.getItem("phytoSaved")||"[]");
- if(!saved.includes(name))saved.push(name);
- localStorage.setItem("phytoSaved",JSON.stringify(saved));
- alert(name+" saved!");
- renderSaved();
-}
+/* PLANT SEARCH USING GBIF */
+async function searchPlants() {
+  const query = document.getElementById('plantSearch').value.trim();
+  const results = document.getElementById('plantResults');
+  const status = document.getElementById('searchStatus');
 
-function renderSaved(){
- const saved=JSON.parse(localStorage.getItem("phytoSaved")||"[]");
- renderPlants(plants.filter(p=>saved.includes(p.name)),"savedResults");
-}
+  document.getElementById('plantDetails').classList.add('hidden');
 
-function showSaved(){
- document.getElementById("saved").scrollIntoView({behavior:"smooth"});
- renderSaved();
-}
-
-function toggleTheme(){
- document.body.classList.toggle("dark");
- const dark=document.body.classList.contains("dark");
- localStorage.setItem("phytoTheme",dark?"dark":"light");
- document.getElementById("themeButton").textContent=dark?"☀️ Light":"🌙 Dark";
-}
-
-const articles=[
- {
-  title:"Why plants need healthy soil",
-  text:"Healthy soil provides plants with water, air and nutrients. Living organisms in soil help break down organic matter.",
-  tip:"Protect soil from erosion and add suitable organic matter.",
-  fact:"Earthworms help improve soil structure."
- },
- {
-  title:"How plants make their food",
-  text:"Plants use light energy, water and carbon dioxide to make sugars through photosynthesis.",
-  tip:"Observe how sunlight reaches the leaves of your plants.",
-  fact:"Photosynthesis mostly takes place in leaves."
- },
- {
-  title:"Why watering matters",
-  text:"Plants need water for many processes, but too much water can also harm their roots.",
-  tip:"Check soil moisture before watering.",
-  fact:"Roots absorb water and mineral nutrients."
- },
- {
-  title:"The importance of pollinators",
-  text:"Bees and other animals move pollen between flowers in many plants.",
-  tip:"Protect useful insects and seek local advice before pest-control decisions.",
-  fact:"Some plants are pollinated by wind."
- },
- {
-  title:"Why crop rotation helps",
-  text:"Growing different crop families in sequence can help manage some pests and support soil health.",
-  tip:"Learn the plant families of your crops before planning rotation.",
-  fact:"Beans belong to the legume family."
- }
-];
-
-let articleIndex=new Date().getDate()%articles.length;
-
-function showArticle(){
- const a=articles[articleIndex];
- document.getElementById("articleTitle").textContent=a.title;
- document.getElementById("articleText").textContent=a.text;
- document.getElementById("articleTip").textContent="Today's tip: "+a.tip;
- document.getElementById("plantFact").textContent=a.fact;
-}
-function nextArticle(){
- articleIndex=(articleIndex+1)%articles.length;
- showArticle();
-}
-
-function reply(q){
- q=q.toLowerCase();
- if(q.includes("water"))
- return "Water needs depend on the plant, weather and soil. Check soil moisture before watering. Avoid leaving roots in waterlogged soil.";
- if(q.includes("yellow")||q.includes("leaf"))
- return "Yellow leaves can have several causes, including watering problems, nutrient issues, pests or natural ageing. Observe the whole plant.";
- if(q.includes("tomato"))
- return plants[0].info;
- if(q.includes("maize"))
- return plants[1].info;
- if(q.includes("bean"))
- return plants[2].info;
- if(q.includes("sun")||q.includes("light"))
- return "Many crops need good sunlight. The exact amount depends on the plant variety and growing conditions.";
- if(q.includes("soil"))
- return "Healthy soil provides water, air and nutrients. Compost can add organic matter. Good drainage is also important.";
- if(q.includes("disease")||q.includes("pest"))
- return "Describe the plant, the symptoms and when the problem began. Similar symptoms can have different causes. Ask a local agricultural adviser for serious problems.";
- return "Try asking about watering, soil, sunlight, tomato, maize, beans or yellow leaves.";
-}
-
-function sendMessage(){
- const input=document.getElementById("chatInput");
- const q=input.value.trim();
- if(!q)return;
- addMessage(q,"user");
- input.value="";
- setTimeout(()=>addMessage(reply(q),"bot"),200);
-}
-
-function addMessage(text,who){
- const div=document.createElement("div");
- div.className="message "+who;
- div.textContent=text;
- const chat=document.getElementById("chat");
- chat.appendChild(div);
- chat.scrollTop=chat.scrollHeight;
-}
-
-async function connectArduino(){
- const status=document.getElementById("connectionStatus");
- if(!("serial" in navigator)){
-  status.textContent="Web Serial is not supported. Try Chrome or Edge on a computer.";
-  return;
- }
- try{
-  const port=await navigator.serial.requestPort();
-  await port.open({baudRate:9600});
-  status.textContent="Connected. Waiting for Arduino...";
-  const decoder=new TextDecoderStream();
-  port.readable.pipeTo(decoder.writable);
-  const reader=decoder.readable.getReader();
-  let buffer="";
-  while(true){
-   const result=await reader.read();
-   if(result.done)break;
-   buffer+=result.value;
-   const lines=buffer.split("\n");
-   buffer=lines.pop();
-   lines.forEach(line=>{
-    try{
-     const data=JSON.parse(line.trim());
-     if(data.soil!==undefined){
-      document.getElementById("soilValue").textContent=data.soil;
-      document.getElementById("waterHealth").textContent=data.soil;
-     }
-     if(data.temperature!==undefined)
-      document.getElementById("tempValue").textContent=data.temperature+" °C";
-     if(data.humidity!==undefined){
-      document.getElementById("humValue").textContent=data.humidity+" %";
-      document.getElementById("humidityHealth").textContent=data.humidity+"%";
-     }
-    }catch(e){}
-   });
+  if(!query) {
+    status.textContent = 'Please enter a plant name.';
+    return;
   }
- }catch(error){
-  status.textContent="Connection failed: "+error.message;
- }
+
+  results.innerHTML = '';
+  status.textContent = 'Searching the plant database...';
+
+  try {
+    const url =
+      'https://api.gbif.org/v1/species/search?kingdomKey=6&rank=SPECIES&status=ACCEPTED&limit=20&q='
+      + encodeURIComponent(query);
+
+    const response = await fetch(url);
+    if(!response.ok) throw new Error('Database request failed');
+
+    const data = await response.json();
+
+    if(!data.results || data.results.length === 0) {
+      status.textContent = 'No matching plant species found.';
+      return;
+    }
+
+    status.textContent = data.results.length + ' results found.';
+
+    data.results.forEach((plant,index) => {
+      const item = document.createElement('div');
+      item.className = 'result';
+
+      const name = document.createElement('h3');
+      name.textContent = plant.scientificName || plant.canonicalName || 'Unknown plant';
+
+      const common = document.createElement('p');
+      common.textContent = 'Common name: ' + (plant.vernacularName || 'Not available');
+
+      const family = document.createElement('p');
+      family.textContent = 'Family: ' + (plant.family || 'Not available');
+
+      const button = document.createElement('button');
+      button.textContent = 'View plant details';
+      button.onclick = () => showPlantDetails(plant);
+
+      item.append(name,common,family,button);
+      results.appendChild(item);
+    });
+
+  } catch(error) {
+    status.textContent = 'Could not connect. Check your internet connection and try again.';
+  }
 }
 
-const wave=document.getElementById("wave");
-for(let i=0;i<45;i++){
- const bar=document.createElement("span");
- wave.appendChild(bar);
+/* PLANT DETAILS */
+async function showPlantDetails(plant) {
+  const details = document.getElementById('plantDetails');
+  details.classList.remove('hidden');
+  details.innerHTML = '<h2>Loading plant information...</h2>';
+
+  const addInfo = (label,value) => {
+    const p = document.createElement('p');
+    p.textContent = label + ': ' + (value || 'Not available');
+    details.appendChild(p);
+  };
+
+  details.innerHTML = '<h2>' +
+    (plant.canonicalName || plant.scientificName || 'Plant details') +
+    '</h2>';
+
+  addInfo('Scientific name',plant.scientificName);
+  addInfo('Common name',plant.vernacularName);
+  addInfo('Family',plant.family);
+  addInfo('Genus',plant.genus);
+  addInfo('Order',plant.order);
+  addInfo('Class',plant.class);
+  addInfo('Kingdom',plant.kingdom);
+  addInfo('Taxonomic status',plant.taxonomicStatus);
+  addInfo('GBIF ID',plant.key);
+
+  const link = document.createElement('a');
+  link.href = 'https://www.gbif.org/species/' + plant.key;
+  link.target = '_blank';
+  link.textContent = 'Open full GBIF record';
+  details.appendChild(link);
+
+  const photoHeading = document.createElement('h3');
+  photoHeading.textContent = 'Plant photograph';
+  details.appendChild(photoHeading);
+
+  const photoText = document.createElement('p');
+  photoText.textContent = 'Searching for an available photograph...';
+  details.appendChild(photoText);
+
+  try {
+    const name = plant.canonicalName || plant.scientificName;
+    const response = await fetch(
+      'https://api.inaturalist.org/v1/taxa?q=' +
+      encodeURIComponent(name) + '&per_page=1'
+    );
+
+    const data = await response.json();
+    const photo = data.results?.[0]?.default_photo?.medium_url;
+
+    if(photo) {
+      const img = document.createElement('img');
+      img.src = photo;
+      img.alt = 'Photograph of ' + name;
+      img.className = 'plant-image';
+      details.insertBefore(img,photoHeading);
+      photoText.textContent = 'Photograph provided by iNaturalist.';
+    } else {
+      photoText.textContent = 'No photograph is available.';
+    }
+  } catch(error) {
+    photoText.textContent = 'Photograph could not be loaded.';
+  }
+
+  details.scrollIntoView({behavior:'smooth'});
 }
 
-if(localStorage.getItem("phytoTheme")==="dark"){
- document.body.classList.add("dark");
- document.getElementById("themeButton").textContent="☀️ Light";
+/* EDUCATIONAL ASSISTANT DEMO */
+function askAssistant() {
+  const input = document.getElementById('question');
+  const chat = document.getElementById('chatMessages');
+  const question = input.value.trim().toLowerCase();
+
+  if(!question) return;
+
+  const user = document.createElement('p');
+  user.textContent = 'You: ' + input.value;
+  chat.appendChild(user);
+
+  let answer =
+    'I am a basic educational assistant. Try asking about water, sunlight, soil, or photosynthesis.';
+
+  if(question.includes('water'))
+    answer = 'Plants need water for photosynthesis and transport of nutrients. Water needs differ between species.';
+
+  else if(question.includes('sun'))
+    answer = 'Sunlight provides energy for photosynthesis. Different plants need different light conditions.';
+
+  else if(question.includes('soil'))
+    answer = 'Soil provides support, water, air and nutrients to plant roots.';
+
+  else if(question.includes('photosynthesis'))
+    answer = 'Photosynthesis is the process by which green plants use light energy to make sugars from water and carbon dioxide.';
+
+  else if(question.includes('tomato'))
+    answer = 'Tomato is a flowering plant commonly grown for its edible fruits. It needs suitable sunlight, water and nutrients.';
+
+  else if(question.includes('maize'))
+    answer = 'Maize is a cereal crop. It grows best with suitable soil, water, sunlight and nutrients.';
+
+  const reply = document.createElement('p');
+  reply.textContent = 'Assistant: ' + answer;
+  chat.appendChild(reply);
+
+  input.value = '';
+  chat.scrollTop = chat.scrollHeight;
 }
 
-document.getElementById("year").textContent=new Date().getFullYear();
-renderPlants(plants,"plantResults");
-renderSaved();
-showArticle();
+/* ARDUINO USB SERIAL MONITOR */
+let serialPort = null;
+let reader = null;
+let keepReading = false;
+
+async function connectArduino() {
+  if(!('serial' in navigator)) {
+    alert('Web Serial is not supported in this browser. Try a recent version of Chrome or Edge.');
+    return;
+  }
+
+  try {
+    serialPort = await navigator.serial.requestPort();
+    await serialPort.open({baudRate:9600});
+
+    document.getElementById('connectionStatus').textContent =
+      'Arduino connected. Waiting for data...';
+
+    keepReading = true;
+    readArduino();
+
+  } catch(error) {
+    document.getElementById('connectionStatus').textContent =
+      'Connection failed: ' + error.message;
+  }
+}
+
+async function readArduino() {
+  const decoder = new TextDecoder();
+  let buffer = '';
+
+  try {
+    while(serialPort && serialPort.readable && keepReading) {
+      reader = serialPort.readable.getReader();
+
+      try {
+        while(keepReading) {
+          const {value,done} = await reader.read();
+          if(done) break;
+
+          buffer += decoder.decode(value,{stream:true});
+
+          let lines = buffer.split('\n');
+          buffer = lines.pop();
+
+          for(const line of lines) {
+            processArduinoData(line.trim());
+          }
+        }
+      } finally {
+        reader.releaseLock();
+        reader = null;
+      }
+    }
+  } catch(error) {
+    document.getElementById('connectionStatus').textContent =
+      'Reading stopped: ' + error.message;
+  }
+}
+
+function processArduinoData(line) {
+  if(!line) return;
+
+  try {
+    const data = JSON.parse(line);
+
+    if(data.soil !== undefined)
+      document.getElementById('soilValue').textContent = data.soil;
+
+    if(data.temperature !== undefined)
+      document.getElementById('temperatureValue').textContent =
+        data.temperature + ' °C';
+
+    if(data.humidity !== undefined)
+      document.getElementById('humidityValue').textContent =
+        data.humidity + ' %';
+
+    document.getElementById('rawData').textContent = line;
+
+  } catch(error) {
+    document.getElementById('rawData').textContent =
+      'Received data: ' + line;
+  }
+}
+
+async function disconnectArduino() {
+  keepReading = false;
+
+  try {
+    if(reader) await reader.cancel();
+    if(serialPort) await serialPort.close();
+  } catch(error) {
+    console.log(error);
+  }
+
+  reader = null;
+  serialPort = null;
+
+  document.getElementById('connectionStatus').textContent =
+    'Arduino disconnected.';
+}
+
+/* ENTER KEY SEARCH */
+document.getElementById('plantSearch').addEventListener('keydown',e => {
+  if(e.key === 'Enter') searchPlants();
+});
+
+document.getElementById('question').addEventListener('keydown',e => {
+  if(e.key === 'Enter') askAssistant();
+});
 </script>
+
 </body>
 </html>
