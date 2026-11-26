@@ -1,648 +1,416 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>PHYTO-NET | Intelligent Plant Knowledge</title>
+
+<title>PHYTO-NET | Plant Knowledge Network</title>
+
 <style>
 :root {
-  --green:#123e2b;
-  --green2:#1d6845;
-  --lime:#b8e5a3;
-  --red:#c62835;
-  --red2:#a91d2b;
-  --bg:#edf4ed;
-  --card:rgba(255,255,255,.88);
-  --text:#17291e;
-  --muted:#65776b;
-  --line:#dce8dc;
-  --shadow:0 12px 35px rgba(20,60,35,.09);
+    --green: #123c2c;
+    --green2: #1c6546;
+    --red: #a92727;
+    --cream: #f5f7f1;
+    --white: #ffffff;
+    --text: #203329;
+    --muted: #6b7b70;
 }
-*{box-sizing:border-box}
-html{scroll-behavior:smooth}
-body{
-  margin:0;
-  background:var(--bg);
-  color:var(--text);
-  font-family:Inter,Arial,sans-serif;
+
+* {
+    box-sizing: border-box;
 }
-button,input{font:inherit}
-button{cursor:pointer}
-header{
-  position:sticky;top:0;z-index:20;
-  background:var(--red);
-  box-shadow:0 5px 20px #50151c30;
+
+body {
+    margin: 0;
+    background: var(--cream);
+    color: var(--text);
+    font-family: Arial, sans-serif;
 }
-.nav{
-  max-width:1250px;margin:auto;padding:13px 22px;
-  display:flex;align-items:center;justify-content:space-between;
-  gap:18px;
+
+nav {
+    background: var(--red);
+    color: white;
+    padding: 17px 7%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 15px;
 }
-.logo{color:white;font-size:22px;font-weight:900;letter-spacing:1px}
-.logo span{color:#ffe0a5}
-nav{display:flex;align-items:center;gap:19px;flex-wrap:wrap}
-nav a{color:white;text-decoration:none;font-size:13px;font-weight:700}
-nav a:hover{color:#ffe1a6}
-.nav-actions{display:flex;gap:8px;align-items:center}
-.nav-button{
-  border:1px solid #ffffff75;background:#ffffff18;color:white;
-  padding:9px 12px;border-radius:10px;font-weight:700
+
+.logo {
+    font-size: 23px;
+    font-weight: bold;
+    letter-spacing: 1px;
 }
-.menu-button{display:none}
-.container{max-width:1250px;margin:auto;padding:25px 22px}
-.hero{
-  min-height:410px;border-radius:27px;overflow:hidden;
-  background:
-    linear-gradient(90deg,rgba(9,48,30,.94),rgba(9,48,30,.58)),
-    url("https://images.unsplash.com/photo-1497250681960-ef046c08a56e?w=1600") center/cover;
-  color:white;padding:55px;
-  display:flex;align-items:center;
+
+nav a {
+    color: white;
+    text-decoration: none;
+    margin-left: 18px;
+    font-size: 14px;
 }
-.hero-content{max-width:650px}
-.eyebrow{
-  display:inline-block;background:#b8e5a326;color:#d7f5ca;
-  border:1px solid #b8e5a34a;border-radius:30px;
-  padding:8px 13px;font-size:12px;font-weight:800;
-  letter-spacing:1px
+
+.hero {
+    background: linear-gradient(120deg, #123c2c, #27734e);
+    color: white;
+    padding: 75px 8%;
 }
-.hero h1{font-size:clamp(36px,5vw,61px);line-height:1.05;margin:20px 0}
-.hero p{color:#e1eee4;line-height:1.8;max-width:580px}
-.hero-search{
-  margin-top:25px;display:flex;gap:10px;max-width:560px;
-  background:white;padding:7px;border-radius:14px
+
+.hero h1 {
+    font-size: clamp(32px, 5vw, 54px);
+    max-width: 700px;
+    margin: 0 0 15px;
 }
-.hero-search input{flex:1;min-width:0;border:0;outline:0;padding:12px;color:#17291e}
-.primary{
-  border:0;border-radius:11px;background:var(--green2);
-  color:white;padding:12px 19px;font-weight:800
+
+.hero p {
+    max-width: 620px;
+    line-height: 1.7;
+    color: #e2eee5;
 }
-.hero-search .primary{background:var(--red)}
-.primary:hover{filter:brightness(.94)}
-.section{margin-top:45px;scroll-margin-top:90px}
-.section-heading{
-  display:flex;align-items:end;justify-content:space-between;
-  gap:15px;margin-bottom:19px
+
+.search-area {
+    display: flex;
+    gap: 10px;
+    max-width: 650px;
+    margin-top: 28px;
 }
-.section-heading h2{margin:0;font-size:27px;color:var(--green)}
-.section-heading p{margin:7px 0 0;color:var(--muted);font-size:14px}
-.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:17px}
-.card{
-  background:var(--card);border:1px solid var(--line);
-  border-radius:19px;padding:21px;box-shadow:var(--shadow)
+
+.search-area input {
+    flex: 1;
+    min-width: 0;
+    padding: 16px;
+    border: 0;
+    border-radius: 8px;
+    font-size: 16px;
 }
-.card h3{margin:0 0 9px;color:var(--green)}
-.card p{color:var(--muted);line-height:1.65;font-size:14px}
-.plant-card{overflow:hidden;padding:0}
-.plant-card img{width:100%;height:175px;object-fit:cover;background:#dce8dc}
-.plant-card-content{padding:18px}
-.tag{
-  display:inline-block;background:#e6f3e6;color:#24623d;
-  padding:6px 9px;border-radius:20px;font-size:11px;font-weight:800
+
+button {
+    border: 0;
+    background: #e5b85c;
+    color: #26382d;
+    padding: 15px 22px;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
 }
-.plant-card button{margin-top:8px}
-.stats{
-  display:grid;grid-template-columns:repeat(4,1fr);gap:13px;margin-top:22px
+
+button:hover {
+    filter: brightness(.95);
 }
-.stat{background:#ffffff18;border:1px solid #ffffff25;padding:16px;border-radius:15px}
-.stat strong{display:block;font-size:25px;color:#d7f5ca}
-.stat span{font-size:12px;color:#e3eee5}
-.search-row{display:flex;gap:10px;margin:16px 0}
-.search-row input{
-  flex:1;min-width:0;padding:14px 16px;border-radius:12px;
-  border:1px solid var(--line);background:white;outline:none
+
+main {
+    max-width: 1100px;
+    margin: auto;
+    padding: 45px 20px;
 }
-.search-row input:focus{border-color:var(--green2)}
-.result-panel{margin-top:16px}
-.detail-list{padding-left:20px;color:var(--muted);line-height:1.7}
-.detail-list li{margin-bottom:7px}
-.disease{
-  border-left:4px solid #d99a39;padding:12px 15px;
-  background:#fff9ed;border-radius:8px;margin:12px 0
+
+.section-title {
+    color: var(--green);
+    margin-bottom: 8px;
 }
-.disease h4{margin:0 0 7px;color:#805018}
-.disease p{margin:5px 0}
-.ai-layout{display:grid;grid-template-columns:1fr 1.2fr;gap:18px}
-.ai-panel{
-  background:linear-gradient(145deg,#123e2b,#1d6845);
-  color:white;border-radius:22px;padding:27px
+
+.intro {
+    color: var(--muted);
+    line-height: 1.6;
 }
-.ai-panel h2{font-size:29px;margin:10px 0}
-.ai-panel p{color:#d8eadd;line-height:1.7}
-.chat{
-  background:white;border:1px solid var(--line);
-  border-radius:20px;overflow:hidden;min-height:390px;
-  display:flex;flex-direction:column
+
+#status {
+    margin: 25px 0;
+    color: var(--green2);
+    font-weight: bold;
 }
-.chat-header{padding:16px;border-bottom:1px solid var(--line);font-weight:800;color:var(--green)}
-.messages{padding:17px;flex:1;max-height:390px;overflow:auto}
-.message{
-  max-width:92%;padding:12px 14px;border-radius:14px;
-  margin:9px 0;white-space:pre-wrap;line-height:1.55;
-  font-size:14px
+
+.result-card {
+    background: white;
+    padding: 25px;
+    border-radius: 14px;
+    margin: 20px 0;
+    box-shadow: 0 5px 20px #173b2810;
 }
-.bot{background:#edf5ed;color:#203c29}
-.user{background:#c62835;color:white;margin-left:auto}
-.chat-form{display:flex;padding:12px;gap:8px;border-top:1px solid var(--line)}
-.chat-form input{
-  flex:1;min-width:0;border:1px solid var(--line);
-  border-radius:10px;padding:12px;outline:0
+
+.result-card h3 {
+    color: var(--green);
+    margin-top: 0;
 }
-.chat-form button{background:var(--red)}
-.article-card{min-height:210px}
-.article-card small{color:#b52a37;font-weight:800;text-transform:uppercase}
-.article-card h3{margin-top:12px}
-.article-card button{margin-top:7px}
-.article-body{white-space:pre-wrap;line-height:1.8;color:var(--muted)}
-.rwanda-card{background:#fff8e9}
-.rwanda-card h3{color:#8c5a1b}
-.footer{
-  margin-top:55px;background:#102f22;color:white;padding:35px 22px
+
+.result-card p {
+    line-height: 1.7;
 }
-.footer-inner{max-width:1250px;margin:auto;display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}
-.footer p{color:#c5d9cb;font-size:13px;line-height:1.7}
-.modal{
-  display:none;position:fixed;inset:0;z-index:50;
-  background:#07170ec9;padding:20px;overflow:auto
+
+.plant-image {
+    width: 100%;
+    max-height: 330px;
+    object-fit: cover;
+    border-radius: 10px;
+    margin: 12px 0;
 }
-.modal-content{
-  max-width:760px;margin:5vh auto;background:white;
-  border-radius:20px;padding:25px;position:relative
+
+.source-link {
+    display: inline-block;
+    margin-top: 10px;
+    color: var(--green2);
+    font-weight: bold;
 }
-.close{float:right;border:0;background:#f1e7e7;border-radius:9px;padding:8px 12px}
-.empty{color:var(--muted);padding:20px;text-align:center}
-.notice{font-size:12px;color:var(--muted);line-height:1.6}
-body.dark{
-  --bg:#101c16;--card:#1b2a21;--text:#e8f0e9;
-  --muted:#b0c2b5;--line:#314538;--green:#c4e6c9
+
+.tag {
+    display: inline-block;
+    background: #e8f1e9;
+    color: var(--green);
+    padding: 6px 10px;
+    border-radius: 20px;
+    margin: 4px;
+    font-size: 12px;
 }
-body.dark .search-row input,body.dark .chat,body.dark .chat-form input,
-body.dark .modal-content{background:#1b2a21;color:#e8f0e9}
-body.dark .bot{background:#263b2c;color:#e8f0e9}
-body.dark .disease{background:#3a3020}
-body.dark .rwanda-card{background:#302a1b}
-body.dark .section-heading h2,body.dark .card h3{color:#c6e8ca}
-body.dark .tag{background:#294b32;color:#d4f0d8}
-@media(max-width:850px){
-  .grid{grid-template-columns:repeat(2,minmax(0,1fr))}
-  .ai-layout{grid-template-columns:1fr}
-  .stats{grid-template-columns:repeat(2,1fr)}
+
+footer {
+    background: #102e22;
+    color: #dce8df;
+    text-align: center;
+    padding: 30px 15px;
+    line-height: 1.7;
 }
-@media(max-width:650px){
-  .nav{flex-wrap:wrap}
-  .menu-button{display:block}
-  nav{display:none;width:100%;flex-direction:column;align-items:flex-start;padding:12px 0}
-  nav.open{display:flex}
-  .hero{padding:30px 22px;min-height:430px}
-  .hero-search{flex-direction:column}
-  .hero-search input{width:100%}
-  .grid{grid-template-columns:1fr}
-  .stats{grid-template-columns:repeat(2,1fr)}
-  .section-heading{align-items:flex-start;flex-direction:column}
-  .container{padding:18px 14px}
+
+@media(max-width:650px) {
+    nav {
+        align-items: flex-start;
+    }
+
+    nav a {
+        margin: 0 12px 0 0;
+        display: inline-block;
+        padding-top: 8px;
+    }
+
+    .search-area {
+        flex-direction: column;
+    }
+
+    .search-area button {
+        width: 100%;
+    }
 }
 </style>
 </head>
+
 <body>
 
-<header>
-  <div class="nav">
-    <div class="logo">PHYTO<span>-NET</span></div>
-    <button class="nav-button menu-button" onclick="toggleMenu()">☰ Menu</button>
-    <nav id="navigation">
-      <a href="#home" onclick="closeMenu()">Home</a>
-      <a href="#library" onclick="closeMenu()">Plant Library</a>
-      <a href="#diseases" onclick="closeMenu()">Diseases</a>
-      <a href="#nutrition" onclick="closeMenu()">Nutrition</a>
-      <a href="#rwanda" onclick="closeMenu()">Rwanda Plants</a>
-      <a href="#articles" onclick="closeMenu()">Articles</a>
-      <a href="#assistant" onclick="closeMenu()">AI Assistant</a>
-    </nav>
-    <div class="nav-actions">
-      <button class="nav-button" onclick="toggleTheme()" title="Change theme">◐ Theme</button>
-    </div>
-  </div>
-</header>
+<nav>
+    <div class="logo">🌿 PHYTO-NET</div>
 
-<main class="container">
+    <div>
+        <a href="#home">Home</a>
+        <a href="#search">Discover Plants</a>
+        <a href="#about">About</a>
+    </div>
+</nav>
 
 <section class="hero" id="home">
-  <div class="hero-content">
-    <span class="eyebrow">SMART PLANT KNOWLEDGE PLATFORM</span>
-    <h1>Discover plants.<br>Understand nature.</h1>
+    <h1>Discover the world of plants.</h1>
+
     <p>
-      Explore plant science, discover common diseases, learn responsible
-      plant care and ask the PHYTO-NET AI assistant your questions.
+        Explore plant knowledge, scientific names, biodiversity
+        records and educational information from connected
+        information sources.
     </p>
-    <div class="hero-search">
-      <input id="mainSearch" placeholder="Search a plant, e.g. Tomato, Maize, Banana">
-      <button class="primary" onclick="searchPlant()">Explore plant →</button>
+
+    <div class="search-area" id="search">
+        <input
+            id="plantInput"
+            type="search"
+            placeholder="Search a plant, e.g. Tomato, Maize or Banana"
+        >
+
+        <button onclick="searchPlant()">Search</button>
     </div>
-    <div class="stats">
-      <div class="stat"><strong id="plantCount">6</strong><span>Starter plants</span></div>
-      <div class="stat"><strong>AI</strong><span>Plant assistant</span></div>
-      <div class="stat"><strong>24/7</strong><span>Learning platform</span></div>
-      <div class="stat"><strong>RW</strong><span>Rwanda focus</span></div>
-    </div>
-  </div>
 </section>
 
-<section class="section" id="library">
-  <div class="section-heading">
-    <div>
-      <h2>Explore the plant library</h2>
-      <p>Search the available starter plants and open their detailed profiles.</p>
-    </div>
-  </div>
-  <div class="search-row">
-    <input id="librarySearch" placeholder="Type a plant name..." oninput="filterPlants()">
-  </div>
-  <div class="grid" id="plantGrid"></div>
-  <div id="plantResult" class="result-panel"></div>
-</section>
+<main>
+    <h2 class="section-title">Plant Information Explorer</h2>
 
-<section class="section" id="diseases">
-  <div class="section-heading">
-    <div>
-      <h2>Plant diseases and protection</h2>
-      <p>Learn common symptoms, prevention and responsible treatment.</p>
-    </div>
-  </div>
-  <div class="grid">
-    <div class="card">
-      <span class="tag">Fungal disease</span>
-      <h3>Early blight</h3>
-      <p>Can affect tomato and potato leaves. Look for brown spots that may have ring patterns.</p>
-      <p><b>Prevention:</b> Crop rotation, healthy planting materials and good airflow.</p>
-    </div>
-    <div class="card">
-      <span class="tag">Fungal disease</span>
-      <h3>Late blight</h3>
-      <p>A serious disease of potato and tomato. It can spread quickly in cool, wet weather.</p>
-      <p><b>Prevention:</b> Monitor crops, use healthy planting materials and seek early advice.</p>
-    </div>
-    <div class="card">
-      <span class="tag">Bacterial disease</span>
-      <h3>Bacterial wilt</h3>
-      <p>May cause sudden wilting even when soil is moist.</p>
-      <p><b>Prevention:</b> Clean planting material, crop rotation and good field hygiene.</p>
-    </div>
-    <div class="card">
-      <span class="tag">Fungal disease</span>
-      <h3>Anthracnose</h3>
-      <p>Can affect beans and other crops, causing dark lesions on leaves, stems or pods.</p>
-      <p><b>Prevention:</b> Healthy seed, crop rotation and removal of infected crop remains.</p>
-    </div>
-    <div class="card">
-      <span class="tag">Leaf disease</span>
-      <h3>Leaf spot</h3>
-      <p>Different fungi and bacteria can cause spots on leaves. The appearance depends on the cause.</p>
-      <p><b>Prevention:</b> Avoid overcrowding and keep tools and planting materials clean.</p>
-    </div>
-    <div class="card">
-      <span class="tag">Root problem</span>
-      <h3>Root rot</h3>
-      <p>Often associated with waterlogged soil and harmful soil organisms.</p>
-      <p><b>Prevention:</b> Improve drainage and avoid overwatering.</p>
-    </div>
-  </div>
-  <p class="notice">A symptom can have several causes. Do not choose a pesticide based only on a website description. Confirm the problem with an agricultural officer and use only locally approved products according to their labels.</p>
-</section>
+    <p class="intro">
+        Search for a plant to collect available information from
+        PHYTO-NET's connected sources.
+    </p>
 
-<section class="section" id="nutrition">
-  <div class="section-heading">
-    <div>
-      <h2>Plant nutrition centre</h2>
-      <p>Understand the nutrients plants need to grow.</p>
-    </div>
-  </div>
-  <div class="grid">
-    <div class="card"><h3>Nitrogen (N)</h3><p>Supports leaf growth and the formation of proteins. A shortage may cause older leaves to become pale or yellow.</p></div>
-    <div class="card"><h3>Phosphorus (P)</h3><p>Supports root development, energy transfer and flowering. Availability depends partly on soil conditions.</p></div>
-    <div class="card"><h3>Potassium (K)</h3><p>Supports water regulation, plant strength and many plant processes.</p></div>
-    <div class="card"><h3>Calcium</h3><p>Helps build strong cell walls and supports healthy growing tissues.</p></div>
-    <div class="card"><h3>Magnesium</h3><p>An important part of chlorophyll, which helps plants capture light energy.</p></div>
-    <div class="card"><h3>Compost and soil</h3><p>Compost can improve soil structure and add organic matter. Use mature compost and follow local soil advice.</p></div>
-  </div>
-</section>
+    <div id="status"></div>
+    <div id="results"></div>
 
-<section class="section" id="rwanda">
-  <div class="section-heading">
-    <div>
-      <h2>Plants of Rwanda</h2>
-      <p>Explore crops that are important to Rwandan agriculture and food.</p>
-    </div>
-  </div>
-  <div class="grid" id="rwandaGrid"></div>
-</section>
+    <section id="about">
+        <h2 class="section-title">About PHYTO-NET</h2>
 
-<section class="section" id="articles">
-  <div class="section-heading">
-    <div>
-      <h2>Plant knowledge and articles</h2>
-      <p>Read educational information about plants, nature and agriculture.</p>
-    </div>
-  </div>
-  <div class="grid" id="articleGrid"></div>
-</section>
-
-<section class="section" id="assistant">
-  <div class="section-heading">
-    <div>
-      <h2>PHYTO-NET AI assistant</h2>
-      <p>Ask questions and explore plant science with your assistant.</p>
-    </div>
-  </div>
-  <div class="ai-layout">
-    <div class="ai-panel">
-      <span class="eyebrow">PLANT KNOWLEDGE ASSISTANT</span>
-      <h2>Ask. Learn. Grow.</h2>
-      <p>
-        Ask about plant diseases, symptoms, growing conditions, soil,
-        nutrition, prevention and responsible crop care.
-      </p>
-      <p><b>Try asking:</b></p>
-      <ul>
-        <li>What diseases affect tomato plants?</li>
-        <li>How do I grow beans?</li>
-        <li>Why are my plant leaves turning yellow?</li>
-        <li>What is photosynthesis?</li>
-      </ul>
-      <p class="notice" style="color:#d8eadd">
-        The assistant's full AI capability becomes active when the approved
-        AI service is configured on the Python server.
-      </p>
-    </div>
-    <div class="chat">
-      <div class="chat-header">🌿 PHYTO-NET Assistant</div>
-      <div class="messages" id="messages">
-        <div class="message bot">Hello! I am PHYTO-NET's plant assistant. What would you like to learn about today?</div>
-      </div>
-      <form class="chat-form" onsubmit="sendQuestion(event)">
-        <input id="question" placeholder="Ask about any plant..." autocomplete="off">
-        <button class="primary" type="submit" id="sendButton">Send</button>
-      </form>
-    </div>
-  </div>
-</section>
-
-<section class="section" id="device">
-  <div class="section-heading">
-    <div>
-      <h2>Smart plant monitoring</h2>
-      <p>Future connection point for the PHYTO-BILLY-2026 Arduino prototype.</p>
-    </div>
-  </div>
-  <div class="grid">
-    <div class="card"><h3>🌱 Soil moisture</h3><p id="soilValue">Waiting for Arduino connection</p></div>
-    <div class="card"><h3>🌡 Temperature</h3><p id="temperatureValue">Waiting for Arduino connection</p></div>
-    <div class="card"><h3>💧 Water pump</h3><p id="pumpValue">Waiting for Arduino connection</p></div>
-  </div>
-  <p class="notice">The monitoring display is a future integration area. It does not yet connect to your Arduino or SIM module.</p>
-</section>
-
+        <p class="intro">
+            PHYTO-NET is an educational plant knowledge project.
+            It brings together information from online sources
+            and aims to support plant learning, plant care and
+            agricultural education, including information about
+            plants grown in Rwanda.
+        </p>
+    </section>
 </main>
 
-<footer class="footer">
-  <div class="footer-inner">
-    <div>
-      <div class="logo">PHYTO<span>-NET</span></div>
-      <p>Knowledge for healthier plants and a greener world.</p>
-    </div>
-    <div>
-      <b>About the project</b>
-      <p>PHYTO-NET is an educational plant knowledge platform<br>developed as part of PHYTO-BILLY-2026.</p>
-    </div>
-    <div>
-      <b>Learning with care</b>
-      <p>Always confirm serious crop problems with a qualified<br>agricultural adviser.</p>
-    </div>
-  </div>
+<footer>
+    <strong>PHYTO-NET</strong><br>
+    Plant Knowledge Network<br>
+    External information is provided by its original sources.
 </footer>
 
-<div class="modal" id="articleModal" onclick="closeModalOutside(event)">
-  <div class="modal-content">
-    <button class="close" onclick="closeArticle()">Close ✕</button>
-    <div id="articleContent"></div>
-  </div>
-</div>
-
 <script>
-let plantData = {};
-let articleData = [];
-let rwandaData = [];
+async function searchPlant() {
+    const input = document.getElementById("plantInput");
+    const status = document.getElementById("status");
+    const results = document.getElementById("results");
 
-const plantImages = {
-  tomato:"https://images.unsplash.com/photo-1546094096-0df4bcaaa337?w=700",
-  maize:"https://images.unsplash.com/photo-1551754655-cd27e38d2076?w=700",
-  beans:"https://images.unsplash.com/photo-1515543904379-3d757afe72e4?w=700",
-  carrot:"https://images.unsplash.com/photo-1445282768818-728615cc910a?w=700",
-  potato:"https://images.unsplash.com/photo-1518977676601-b53f82aba655?w=700",
-  banana:"https://images.unsplash.com/photo-1571771894821-ce9b6c11b08e?w=700"
-};
+    const name = input.value.trim();
 
-function toggleMenu(){
-  document.getElementById("navigation").classList.toggle("open");
-}
-function closeMenu(){
-  document.getElementById("navigation").classList.remove("open");
-}
-function toggleTheme(){
-  document.body.classList.toggle("dark");
-  localStorage.setItem("phytoTheme",document.body.classList.contains("dark")?"dark":"light");
-}
-if(localStorage.getItem("phytoTheme")==="dark"){
-  document.body.classList.add("dark");
-}
-
-async function loadData(){
-  try{
-    const [p,a,r]=await Promise.all([
-      fetch("/api/plants"),
-      fetch("/api/articles"),
-      fetch("/api/rwanda")
-    ]);
-    if(!p.ok||!a.ok||!r.ok) throw new Error("Could not load data");
-    plantData=await p.json();
-    articleData=await a.json();
-    rwandaData=await r.json();
-    document.getElementById("plantCount").textContent=Object.keys(plantData).length;
-    displayPlants(Object.keys(plantData));
-    displayArticles();
-    displayRwanda();
-  }catch(error){
-    document.getElementById("plantGrid").innerHTML=
-      '<p class="empty">Plant information could not load. Please refresh the page.</p>';
-  }
-}
-
-function displayPlants(names){
-  const grid=document.getElementById("plantGrid");
-  if(!names.length){
-    grid.innerHTML='<p class="empty">No matching plants found.</p>';
-    return;
-  }
-  grid.innerHTML=names.map(name=>{
-    const p=plantData[name];
-    const image=plantImages[name]||"https://images.unsplash.com/photo-1497250681960-ef046c08a56e?w=700";
-    return `
-      <div class="card plant-card">
-        <img src="${image}" alt="${safe(name)} plant" loading="lazy">
-        <div class="plant-card-content">
-          <span class="tag">Plant profile</span>
-          <h3>${safe(name.charAt(0).toUpperCase()+name.slice(1))}</h3>
-          <p><i>${safe(p.scientific)}</i></p>
-          <p>${safe(p.description)}</p>
-          <button class="primary" onclick="showPlant('${safe(name)}')">Explore plant →</button>
-        </div>
-      </div>`;
-  }).join("");
-}
-
-function filterPlants(){
-  const term=document.getElementById("librarySearch").value.toLowerCase().trim();
-  const matches=Object.keys(plantData).filter(name=>
-    name.includes(term)||plantData[name].scientific.toLowerCase().includes(term)
-  );
-  displayPlants(matches);
-}
-
-function searchPlant(){
-  const term=document.getElementById("mainSearch").value.toLowerCase().trim();
-  if(!term){alert("Please type a plant name.");return;}
-  const found=Object.keys(plantData).find(name=>
-    name===term||name.includes(term)||plantData[name].scientific.toLowerCase().includes(term)
-  );
-  document.getElementById("library").scrollIntoView();
-  if(found){
-    showPlant(found);
-  }else{
-    document.getElementById("plantResult").innerHTML=
-      `<div class="card"><h3>Plant not in the starter library</h3>
-      <p>Ask the AI assistant about ${safe(term)}. Its answer may cover plants beyond the starter library.</p>
-      <button class="primary" onclick="askAbout('${safe(term)}')">Ask AI about this plant</button></div>`;
-  }
-}
-
-document.getElementById("mainSearch").addEventListener("keydown",e=>{
-  if(e.key==="Enter")searchPlant();
-});
-
-function showPlant(name){
-  const p=plantData[name];
-  if(!p)return;
-  const diseases=p.diseases.map(d=>`
-    <div class="disease">
-      <h4>${safe(d.name)}</h4>
-      <p><b>Symptoms:</b> ${safe(d.symptoms)}</p>
-      <p><b>Care and prevention:</b> ${safe(d.care)}</p>
-      <p><b>Treatment guidance:</b> ${safe(d.treatment)}</p>
-    </div>`).join("");
-
-  document.getElementById("plantResult").innerHTML=`
-    <div class="card">
-      <span class="tag">Complete starter profile</span>
-      <h2>${safe(name.charAt(0).toUpperCase()+name.slice(1))}</h2>
-      <p><i>${safe(p.scientific)}</i></p>
-      <p>${safe(p.description)}</p>
-      <h3>Growing conditions</h3><p>${safe(p.conditions)}</p>
-      <h3>Benefits and nutrition</h3><p>${safe(p.benefits)}</p>
-      <h3>Common diseases</h3>${diseases}
-      <button class="primary" onclick="askAbout('${safe(name)}')">Ask AI for more information →</button>
-    </div>`;
-}
-
-function displayArticles(){
-  document.getElementById("articleGrid").innerHTML=articleData.map((a,i)=>`
-    <div class="card article-card">
-      <small>${safe(a.category)}</small>
-      <h3>${safe(a.title)}</h3>
-      <p>${safe(a.body.slice(0,125))}...</p>
-      <button class="primary" onclick="openArticle(${i})">Read full article →</button>
-    </div>`).join("");
-}
-
-function openArticle(index){
-  const a=articleData[index];
-  document.getElementById("articleContent").innerHTML=`
-    <span class="tag">${safe(a.category)}</span>
-    <h2>${safe(a.title)}</h2>
-    <p class="article-body">${safe(a.body)}</p>`;
-  document.getElementById("articleModal").style.display="block";
-}
-function closeArticle(){
-  document.getElementById("articleModal").style.display="none";
-}
-function closeModalOutside(event){
-  if(event.target.id==="articleModal")closeArticle();
-}
-
-function displayRwanda(){
-  document.getElementById("rwandaGrid").innerHTML=rwandaData.map(p=>`
-    <div class="card rwanda-card">
-      <span class="tag">Rwanda agriculture</span>
-      <h3>${safe(p.name)}</h3>
-      <p>${safe(p.detail)}</p>
-    </div>`).join("");
-}
-
-function safe(value){
-  return String(value).replace(/[&<>"']/g,ch=>({
-    "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"
-  }[ch]));
-}
-
-function addMessage(text,type){
-  const messages=document.getElementById("messages");
-  const item=document.createElement("div");
-  item.className="message "+type;
-  item.textContent=text;
-  messages.appendChild(item);
-  messages.scrollTop=messages.scrollHeight;
-}
-
-async function sendQuestion(event){
-  event.preventDefault();
-  const input=document.getElementById("question");
-  const button=document.getElementById("sendButton");
-  const question=input.value.trim();
-  if(!question)return;
-  addMessage(question,"user");
-  input.value="";
-  button.disabled=true;
-  button.textContent="Thinking...";
-  const waiting=document.createElement("div");
-  waiting.className="message bot";
-  waiting.textContent="PHYTO-NET is preparing an answer...";
-  document.getElementById("messages").appendChild(waiting);
-
-  try{
-    const response=await fetch("/api/ask",{
-      method:"POST",
-      headers:{"Content-Type":"application/json"},
-      body:JSON.stringify({question})
-    });
-    const data=await response.json();
-    waiting.textContent=data.answer||"No answer was returned.";
-    if(data.mode==="demonstration"){
-      waiting.textContent+="\n\n[Demonstration mode: connect the approved AI service to activate real AI.]";
+    if (!name) {
+        status.textContent = "Please enter a plant name.";
+        return;
     }
-  }catch(error){
-    waiting.textContent="I could not connect to the server. Please try again.";
-  }finally{
-    button.disabled=false;
-    button.textContent="Send";
-  }
+
+    status.textContent = "Searching connected plant information sources...";
+    results.replaceChildren();
+
+    try {
+        const response = await fetch(
+            "/api/plant-search?q=" + encodeURIComponent(name)
+        );
+
+        const data = await response.json();
+
+        if (!response.ok) {
+            throw new Error(data.error || "Search failed.");
+        }
+
+        status.textContent = "Search completed.";
+
+        let foundSomething = false;
+
+        // Wikipedia information
+        if (data.wikipedia) {
+            foundSomething = true;
+
+            const card = document.createElement("article");
+            card.className = "result-card";
+
+            const heading = document.createElement("h3");
+            heading.textContent = data.wikipedia.title;
+            card.appendChild(heading);
+
+            if (data.wikipedia.description) {
+                const description = document.createElement("p");
+                description.textContent = data.wikipedia.description;
+                card.appendChild(description);
+            }
+
+            if (data.wikipedia.image) {
+                const image = document.createElement("img");
+                image.className = "plant-image";
+                image.src = data.wikipedia.image;
+                image.alt = "Image associated with " + data.wikipedia.title;
+                image.loading = "lazy";
+                card.appendChild(image);
+            }
+
+            const extract = document.createElement("p");
+            extract.textContent = data.wikipedia.extract || "No summary available.";
+            card.appendChild(extract);
+
+            if (data.wikipedia.url) {
+                const link = document.createElement("a");
+                link.className = "source-link";
+                link.href = data.wikipedia.url;
+                link.target = "_blank";
+                link.rel = "noopener noreferrer";
+                link.textContent = "Read the original Wikipedia article";
+                card.appendChild(link);
+            }
+
+            results.appendChild(card);
+        }
+
+        // GBIF taxonomy information
+        if (data.gbif && data.gbif.length > 0) {
+            foundSomething = true;
+
+            const heading = document.createElement("h2");
+            heading.className = "section-title";
+            heading.textContent = "Biodiversity and taxonomy records";
+            results.appendChild(heading);
+
+            data.gbif.forEach(item => {
+                const card = document.createElement("article");
+                card.className = "result-card";
+
+                const title = document.createElement("h3");
+                title.textContent = item.scientific_name || "Scientific name unavailable";
+                card.appendChild(title);
+
+                const details = [
+                    ["Rank", item.rank],
+                    ["Kingdom", item.kingdom],
+                    ["Family", item.family],
+                    ["Genus", item.genus],
+                    ["Taxonomic status", item.status]
+                ];
+
+                details.forEach(([label, value]) => {
+                    if (value) {
+                        const paragraph = document.createElement("p");
+                        paragraph.textContent = label + ": " + value;
+                        card.appendChild(paragraph);
+                    }
+                });
+
+                if (item.gbif_url) {
+                    const link = document.createElement("a");
+                    link.className = "source-link";
+                    link.href = item.gbif_url;
+                    link.target = "_blank";
+                    link.rel = "noopener noreferrer";
+                    link.textContent = "View this GBIF record";
+                    card.appendChild(link);
+                }
+
+                results.appendChild(card);
+            });
+        }
+
+        if (!foundSomething) {
+            status.textContent =
+                "No matching information was found. Try another plant name.";
+        }
+
+        if (data.wikipedia_error || data.gbif_error) {
+            const note = document.createElement("p");
+            note.className = "intro";
+            note.textContent =
+                "Some connected sources could not be reached. " +
+                "Try again later.";
+            results.appendChild(note);
+        }
+
+        if (data.sources && data.sources.length) {
+            const sourceNote = document.createElement("p");
+            sourceNote.className = "intro";
+            sourceNote.textContent =
+                "Sources used: " + data.sources.join(", ");
+            results.appendChild(sourceNote);
+        }
+
+    } catch (error) {
+        status.textContent =
+            "Could not complete the search. Check your internet connection and try again.";
+    }
 }
 
-function askAbout(name){
-  document.getElementById("question").value=
-    `Tell me detailed information about ${name}, including its growing conditions, common diseases, symptoms, prevention and safe treatment options.`;
-  document.getElementById("assistant").scrollIntoView();
-  document.getElementById("question").focus();
-}
-
-loadData();
+document.getElementById("plantInput").addEventListener("keydown", function(event) {
+    if (event.key === "Enter") {
+        searchPlant();
+    }
+});
 </script>
+
 </body>
 </html>
