@@ -4,660 +4,645 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>PHYTO-NET | Smart Plant Care</title>
-
+<title>PHYTO-NET | Intelligent Plant Knowledge</title>
 <style>
 :root {
-  --bg:#e5f0e9;
-  --card:#ffffff;
-  --text:#17271e;
-  --green:#167a45;
-  --green2:#0c5630;
-  --muted:#64766a;
-  --border:#d5e4d9;
+  --green:#123e2b;
+  --green2:#1d6845;
+  --lime:#b8e5a3;
+  --red:#c62835;
+  --red2:#a91d2b;
+  --bg:#edf4ed;
+  --card:rgba(255,255,255,.88);
+  --text:#17291e;
+  --muted:#65776b;
+  --line:#dce8dc;
+  --shadow:0 12px 35px rgba(20,60,35,.09);
 }
-body.dark {
-  --bg:#101c15;
-  --card:#1c2c22;
-  --text:#eef8f0;
-  --green:#55c982;
-  --green2:#26975a;
-  --muted:#b3c5b8;
-  --border:#344b3a;
-}
-* {box-sizing:border-box}
-body {
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
   margin:0;
-  font-family:Arial,sans-serif;
   background:var(--bg);
   color:var(--text);
-  transition:.3s;
+  font-family:Inter,Arial,sans-serif;
 }
-header {
-  background:var(--card);
-  padding:16px 5%;
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  flex-wrap:wrap;
-  gap:12px;
-  border-bottom:1px solid var(--border);
-  position:sticky;
-  top:0;
-  z-index:10;
+button,input{font:inherit}
+button{cursor:pointer}
+header{
+  position:sticky;top:0;z-index:20;
+  background:var(--red);
+  box-shadow:0 5px 20px #50151c30;
 }
-.logo {
-  font-size:25px;
-  font-weight:bold;
-  color:var(--green);
+.nav{
+  max-width:1250px;margin:auto;padding:13px 22px;
+  display:flex;align-items:center;justify-content:space-between;
+  gap:18px;
 }
-nav {
-  display:flex;
-  flex-wrap:wrap;
-  gap:8px;
+.logo{color:white;font-size:22px;font-weight:900;letter-spacing:1px}
+.logo span{color:#ffe0a5}
+nav{display:flex;align-items:center;gap:19px;flex-wrap:wrap}
+nav a{color:white;text-decoration:none;font-size:13px;font-weight:700}
+nav a:hover{color:#ffe1a6}
+.nav-actions{display:flex;gap:8px;align-items:center}
+.nav-button{
+  border:1px solid #ffffff75;background:#ffffff18;color:white;
+  padding:9px 12px;border-radius:10px;font-weight:700
 }
-button {
-  border:0;
-  padding:11px 15px;
-  border-radius:9px;
-  cursor:pointer;
-  background:var(--green);
-  color:white;
-  font-weight:bold;
+.menu-button{display:none}
+.container{max-width:1250px;margin:auto;padding:25px 22px}
+.hero{
+  min-height:410px;border-radius:27px;overflow:hidden;
+  background:
+    linear-gradient(90deg,rgba(9,48,30,.94),rgba(9,48,30,.58)),
+    url("https://images.unsplash.com/photo-1497250681960-ef046c08a56e?w=1600") center/cover;
+  color:white;padding:55px;
+  display:flex;align-items:center;
 }
-button:hover {opacity:.85}
-nav button {
-  background:transparent;
-  color:var(--text);
+.hero-content{max-width:650px}
+.eyebrow{
+  display:inline-block;background:#b8e5a326;color:#d7f5ca;
+  border:1px solid #b8e5a34a;border-radius:30px;
+  padding:8px 13px;font-size:12px;font-weight:800;
+  letter-spacing:1px
 }
-nav button.active {
-  background:var(--green);
-  color:white;
+.hero h1{font-size:clamp(36px,5vw,61px);line-height:1.05;margin:20px 0}
+.hero p{color:#e1eee4;line-height:1.8;max-width:580px}
+.hero-search{
+  margin-top:25px;display:flex;gap:10px;max-width:560px;
+  background:white;padding:7px;border-radius:14px
 }
-.container {
-  width:90%;
-  max-width:1150px;
-  margin:25px auto;
+.hero-search input{flex:1;min-width:0;border:0;outline:0;padding:12px;color:#17291e}
+.primary{
+  border:0;border-radius:11px;background:var(--green2);
+  color:white;padding:12px 19px;font-weight:800
 }
-.page {display:none}
-.page.active {display:block}
-.hero {
-  background:linear-gradient(120deg,#0c5630,#249b58);
-  color:white;
-  border-radius:20px;
-  padding:55px 30px;
-  text-align:center;
+.hero-search .primary{background:var(--red)}
+.primary:hover{filter:brightness(.94)}
+.section{margin-top:45px;scroll-margin-top:90px}
+.section-heading{
+  display:flex;align-items:end;justify-content:space-between;
+  gap:15px;margin-bottom:19px
 }
-.hero h1 {font-size:42px;margin:0 0 15px}
-.hero p {font-size:18px;line-height:1.6}
-.card {
-  background:var(--card);
-  border:1px solid var(--border);
-  border-radius:15px;
-  padding:22px;
-  margin:15px 0;
+.section-heading h2{margin:0;font-size:27px;color:var(--green)}
+.section-heading p{margin:7px 0 0;color:var(--muted);font-size:14px}
+.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:17px}
+.card{
+  background:var(--card);border:1px solid var(--line);
+  border-radius:19px;padding:21px;box-shadow:var(--shadow)
 }
-.grid {
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
-  gap:16px;
+.card h3{margin:0 0 9px;color:var(--green)}
+.card p{color:var(--muted);line-height:1.65;font-size:14px}
+.plant-card{overflow:hidden;padding:0}
+.plant-card img{width:100%;height:175px;object-fit:cover;background:#dce8dc}
+.plant-card-content{padding:18px}
+.tag{
+  display:inline-block;background:#e6f3e6;color:#24623d;
+  padding:6px 9px;border-radius:20px;font-size:11px;font-weight:800
 }
-input,textarea,select {
-  width:100%;
-  padding:13px;
-  margin:8px 0;
-  border:1px solid var(--border);
-  border-radius:9px;
-  background:var(--card);
-  color:var(--text);
-  font-size:16px;
+.plant-card button{margin-top:8px}
+.stats{
+  display:grid;grid-template-columns:repeat(4,1fr);gap:13px;margin-top:22px
 }
-.plant-image {
-  width:100%;
-  max-height:260px;
-  object-fit:cover;
-  border-radius:12px;
+.stat{background:#ffffff18;border:1px solid #ffffff25;padding:16px;border-radius:15px}
+.stat strong{display:block;font-size:25px;color:#d7f5ca}
+.stat span{font-size:12px;color:#e3eee5}
+.search-row{display:flex;gap:10px;margin:16px 0}
+.search-row input{
+  flex:1;min-width:0;padding:14px 16px;border-radius:12px;
+  border:1px solid var(--line);background:white;outline:none
 }
-.muted {color:var(--muted)}
-.result {
-  padding:15px;
-  border-bottom:1px solid var(--border);
+.search-row input:focus{border-color:var(--green2)}
+.result-panel{margin-top:16px}
+.detail-list{padding-left:20px;color:var(--muted);line-height:1.7}
+.detail-list li{margin-bottom:7px}
+.disease{
+  border-left:4px solid #d99a39;padding:12px 15px;
+  background:#fff9ed;border-radius:8px;margin:12px 0
 }
-.result button {margin-top:8px}
-.tag {
-  display:inline-block;
-  background:#d9f2e1;
-  color:#145c32;
-  padding:5px 9px;
-  border-radius:20px;
-  margin:4px;
-  font-size:13px;
+.disease h4{margin:0 0 7px;color:#805018}
+.disease p{margin:5px 0}
+.ai-layout{display:grid;grid-template-columns:1fr 1.2fr;gap:18px}
+.ai-panel{
+  background:linear-gradient(145deg,#123e2b,#1d6845);
+  color:white;border-radius:22px;padding:27px
 }
-body.dark .tag {
-  background:#294a35;
-  color:#c8f5d5;
+.ai-panel h2{font-size:29px;margin:10px 0}
+.ai-panel p{color:#d8eadd;line-height:1.7}
+.chat{
+  background:white;border:1px solid var(--line);
+  border-radius:20px;overflow:hidden;min-height:390px;
+  display:flex;flex-direction:column
 }
-footer {
-  text-align:center;
-  padding:30px;
-  color:var(--muted);
+.chat-header{padding:16px;border-bottom:1px solid var(--line);font-weight:800;color:var(--green)}
+.messages{padding:17px;flex:1;max-height:390px;overflow:auto}
+.message{
+  max-width:92%;padding:12px 14px;border-radius:14px;
+  margin:9px 0;white-space:pre-wrap;line-height:1.55;
+  font-size:14px
 }
-.hidden {display:none}
+.bot{background:#edf5ed;color:#203c29}
+.user{background:#c62835;color:white;margin-left:auto}
+.chat-form{display:flex;padding:12px;gap:8px;border-top:1px solid var(--line)}
+.chat-form input{
+  flex:1;min-width:0;border:1px solid var(--line);
+  border-radius:10px;padding:12px;outline:0
+}
+.chat-form button{background:var(--red)}
+.article-card{min-height:210px}
+.article-card small{color:#b52a37;font-weight:800;text-transform:uppercase}
+.article-card h3{margin-top:12px}
+.article-card button{margin-top:7px}
+.article-body{white-space:pre-wrap;line-height:1.8;color:var(--muted)}
+.rwanda-card{background:#fff8e9}
+.rwanda-card h3{color:#8c5a1b}
+.footer{
+  margin-top:55px;background:#102f22;color:white;padding:35px 22px
+}
+.footer-inner{max-width:1250px;margin:auto;display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}
+.footer p{color:#c5d9cb;font-size:13px;line-height:1.7}
+.modal{
+  display:none;position:fixed;inset:0;z-index:50;
+  background:#07170ec9;padding:20px;overflow:auto
+}
+.modal-content{
+  max-width:760px;margin:5vh auto;background:white;
+  border-radius:20px;padding:25px;position:relative
+}
+.close{float:right;border:0;background:#f1e7e7;border-radius:9px;padding:8px 12px}
+.empty{color:var(--muted);padding:20px;text-align:center}
+.notice{font-size:12px;color:var(--muted);line-height:1.6}
+body.dark{
+  --bg:#101c16;--card:#1b2a21;--text:#e8f0e9;
+  --muted:#b0c2b5;--line:#314538;--green:#c4e6c9
+}
+body.dark .search-row input,body.dark .chat,body.dark .chat-form input,
+body.dark .modal-content{background:#1b2a21;color:#e8f0e9}
+body.dark .bot{background:#263b2c;color:#e8f0e9}
+body.dark .disease{background:#3a3020}
+body.dark .rwanda-card{background:#302a1b}
+body.dark .section-heading h2,body.dark .card h3{color:#c6e8ca}
+body.dark .tag{background:#294b32;color:#d4f0d8}
+@media(max-width:850px){
+  .grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .ai-layout{grid-template-columns:1fr}
+  .stats{grid-template-columns:repeat(2,1fr)}
+}
+@media(max-width:650px){
+  .nav{flex-wrap:wrap}
+  .menu-button{display:block}
+  nav{display:none;width:100%;flex-direction:column;align-items:flex-start;padding:12px 0}
+  nav.open{display:flex}
+  .hero{padding:30px 22px;min-height:430px}
+  .hero-search{flex-direction:column}
+  .hero-search input{width:100%}
+  .grid{grid-template-columns:1fr}
+  .stats{grid-template-columns:repeat(2,1fr)}
+  .section-heading{align-items:flex-start;flex-direction:column}
+  .container{padding:18px 14px}
+}
 </style>
 </head>
-
 <body>
 
 <header>
-  <div class="logo">🌿 PHYTO-NET</div>
-  <nav>
-    <button class="active" onclick="showPage('home',this)">Home</button>
-    <button onclick="showPage('library',this)">Plant Library</button>
-    <button onclick="showPage('health',this)">Plant Health</button>
-    <button onclick="showPage('assistant',this)">Plant Assistant</button>
-    <button onclick="showPage('monitor',this)">Monitoring</button>
-    <button onclick="showPage('about',this)">About</button>
-    <button onclick="showPage('account',this)">Account</button>
-    <button onclick="toggleTheme()">☀ / 🌙</button>
-  </nav>
+  <div class="nav">
+    <div class="logo">PHYTO<span>-NET</span></div>
+    <button class="nav-button menu-button" onclick="toggleMenu()">☰ Menu</button>
+    <nav id="navigation">
+      <a href="#home" onclick="closeMenu()">Home</a>
+      <a href="#library" onclick="closeMenu()">Plant Library</a>
+      <a href="#diseases" onclick="closeMenu()">Diseases</a>
+      <a href="#nutrition" onclick="closeMenu()">Nutrition</a>
+      <a href="#rwanda" onclick="closeMenu()">Rwanda Plants</a>
+      <a href="#articles" onclick="closeMenu()">Articles</a>
+      <a href="#assistant" onclick="closeMenu()">AI Assistant</a>
+    </nav>
+    <div class="nav-actions">
+      <button class="nav-button" onclick="toggleTheme()" title="Change theme">◐ Theme</button>
+    </div>
+  </div>
 </header>
 
 <main class="container">
 
-<!-- HOME -->
-<section id="home" class="page active">
-  <div class="hero">
-    <h1>Welcome to PHYTO-NET</h1>
+<section class="hero" id="home">
+  <div class="hero-content">
+    <span class="eyebrow">SMART PLANT KNOWLEDGE PLATFORM</span>
+    <h1>Discover plants.<br>Understand nature.</h1>
     <p>
-      Discover plants, learn about their health,
-      and explore smart technology for plant care.
+      Explore plant science, discover common diseases, learn responsible
+      plant care and ask the PHYTO-NET AI assistant your questions.
     </p>
-    <button onclick="showPage('library')">Explore Plants</button>
-    <button onclick="showPage('monitor')">Smart Monitoring</button>
+    <div class="hero-search">
+      <input id="mainSearch" placeholder="Search a plant, e.g. Tomato, Maize, Banana">
+      <button class="primary" onclick="searchPlant()">Explore plant →</button>
+    </div>
+    <div class="stats">
+      <div class="stat"><strong id="plantCount">6</strong><span>Starter plants</span></div>
+      <div class="stat"><strong>AI</strong><span>Plant assistant</span></div>
+      <div class="stat"><strong>24/7</strong><span>Learning platform</span></div>
+      <div class="stat"><strong>RW</strong><span>Rwanda focus</span></div>
+    </div>
   </div>
+</section>
 
+<section class="section" id="library">
+  <div class="section-heading">
+    <div>
+      <h2>Explore the plant library</h2>
+      <p>Search the available starter plants and open their detailed profiles.</p>
+    </div>
+  </div>
+  <div class="search-row">
+    <input id="librarySearch" placeholder="Type a plant name..." oninput="filterPlants()">
+  </div>
+  <div class="grid" id="plantGrid"></div>
+  <div id="plantResult" class="result-panel"></div>
+</section>
+
+<section class="section" id="diseases">
+  <div class="section-heading">
+    <div>
+      <h2>Plant diseases and protection</h2>
+      <p>Learn common symptoms, prevention and responsible treatment.</p>
+    </div>
+  </div>
   <div class="grid">
     <div class="card">
-      <h2>🌱 Plant Library</h2>
-      <p>Search for plants using common or scientific names.</p>
-      <button onclick="showPage('library')">Explore</button>
+      <span class="tag">Fungal disease</span>
+      <h3>Early blight</h3>
+      <p>Can affect tomato and potato leaves. Look for brown spots that may have ring patterns.</p>
+      <p><b>Prevention:</b> Crop rotation, healthy planting materials and good airflow.</p>
     </div>
     <div class="card">
-      <h2>🩺 Plant Health</h2>
-      <p>Learn about plant care and common plant problems.</p>
-      <button onclick="showPage('health')">Learn More</button>
+      <span class="tag">Fungal disease</span>
+      <h3>Late blight</h3>
+      <p>A serious disease of potato and tomato. It can spread quickly in cool, wet weather.</p>
+      <p><b>Prevention:</b> Monitor crops, use healthy planting materials and seek early advice.</p>
     </div>
     <div class="card">
-      <h2>🤖 Plant Assistant</h2>
-      <p>Ask educational questions about plants.</p>
-      <button onclick="showPage('assistant')">Ask Assistant</button>
+      <span class="tag">Bacterial disease</span>
+      <h3>Bacterial wilt</h3>
+      <p>May cause sudden wilting even when soil is moist.</p>
+      <p><b>Prevention:</b> Clean planting material, crop rotation and good field hygiene.</p>
     </div>
     <div class="card">
-      <h2>📡 Smart Monitoring</h2>
-      <p>Connect to an Arduino using a supported USB connection.</p>
-      <button onclick="showPage('monitor')">Open Monitoring</button>
+      <span class="tag">Fungal disease</span>
+      <h3>Anthracnose</h3>
+      <p>Can affect beans and other crops, causing dark lesions on leaves, stems or pods.</p>
+      <p><b>Prevention:</b> Healthy seed, crop rotation and removal of infected crop remains.</p>
+    </div>
+    <div class="card">
+      <span class="tag">Leaf disease</span>
+      <h3>Leaf spot</h3>
+      <p>Different fungi and bacteria can cause spots on leaves. The appearance depends on the cause.</p>
+      <p><b>Prevention:</b> Avoid overcrowding and keep tools and planting materials clean.</p>
+    </div>
+    <div class="card">
+      <span class="tag">Root problem</span>
+      <h3>Root rot</h3>
+      <p>Often associated with waterlogged soil and harmful soil organisms.</p>
+      <p><b>Prevention:</b> Improve drainage and avoid overwatering.</p>
     </div>
   </div>
+  <p class="notice">A symptom can have several causes. Do not choose a pesticide based only on a website description. Confirm the problem with an agricultural officer and use only locally approved products according to their labels.</p>
 </section>
 
-<!-- PLANT LIBRARY -->
-<section id="library" class="page">
-  <h1>🌿 Global Plant Library</h1>
-  <p class="muted">
-    Search the GBIF scientific species database.
-    Information and photographs depend on available records.
-  </p>
-
-  <div class="card">
-    <input id="plantSearch"
-      placeholder="Enter a plant name, e.g. Tomato or Zea mays">
-    <button onclick="searchPlants()">Search Plants</button>
-    <p id="searchStatus" class="muted"></p>
+<section class="section" id="nutrition">
+  <div class="section-heading">
+    <div>
+      <h2>Plant nutrition centre</h2>
+      <p>Understand the nutrients plants need to grow.</p>
+    </div>
   </div>
-
-  <div id="plantResults" class="card">
-    Search for a plant to see results.
-  </div>
-
-  <div id="plantDetails" class="card hidden"></div>
-</section>
-
-<!-- PLANT HEALTH -->
-<section id="health" class="page">
-  <h1>🩺 Plant Health Centre</h1>
-
   <div class="grid">
-    <div class="card">
-      <h2>💧 Watering</h2>
-      <p>Plants need water for photosynthesis and other life processes.
-      Avoid both underwatering and overwatering.</p>
+    <div class="card"><h3>Nitrogen (N)</h3><p>Supports leaf growth and the formation of proteins. A shortage may cause older leaves to become pale or yellow.</p></div>
+    <div class="card"><h3>Phosphorus (P)</h3><p>Supports root development, energy transfer and flowering. Availability depends partly on soil conditions.</p></div>
+    <div class="card"><h3>Potassium (K)</h3><p>Supports water regulation, plant strength and many plant processes.</p></div>
+    <div class="card"><h3>Calcium</h3><p>Helps build strong cell walls and supports healthy growing tissues.</p></div>
+    <div class="card"><h3>Magnesium</h3><p>An important part of chlorophyll, which helps plants capture light energy.</p></div>
+    <div class="card"><h3>Compost and soil</h3><p>Compost can improve soil structure and add organic matter. Use mature compost and follow local soil advice.</p></div>
+  </div>
+</section>
+
+<section class="section" id="rwanda">
+  <div class="section-heading">
+    <div>
+      <h2>Plants of Rwanda</h2>
+      <p>Explore crops that are important to Rwandan agriculture and food.</p>
     </div>
-    <div class="card">
-      <h2>☀️ Sunlight</h2>
-      <p>Different plants need different amounts of sunlight.
-      Check the needs of each plant species.</p>
+  </div>
+  <div class="grid" id="rwandaGrid"></div>
+</section>
+
+<section class="section" id="articles">
+  <div class="section-heading">
+    <div>
+      <h2>Plant knowledge and articles</h2>
+      <p>Read educational information about plants, nature and agriculture.</p>
     </div>
-    <div class="card">
-      <h2>🌱 Soil</h2>
-      <p>Healthy soil provides water, air and nutrients to plant roots.</p>
+  </div>
+  <div class="grid" id="articleGrid"></div>
+</section>
+
+<section class="section" id="assistant">
+  <div class="section-heading">
+    <div>
+      <h2>PHYTO-NET AI assistant</h2>
+      <p>Ask questions and explore plant science with your assistant.</p>
     </div>
-    <div class="card">
-      <h2>🐛 Pests</h2>
-      <p>Inspect leaves and stems regularly.
-      Ask a qualified agricultural adviser about serious pest problems.</p>
+  </div>
+  <div class="ai-layout">
+    <div class="ai-panel">
+      <span class="eyebrow">PLANT KNOWLEDGE ASSISTANT</span>
+      <h2>Ask. Learn. Grow.</h2>
+      <p>
+        Ask about plant diseases, symptoms, growing conditions, soil,
+        nutrition, prevention and responsible crop care.
+      </p>
+      <p><b>Try asking:</b></p>
+      <ul>
+        <li>What diseases affect tomato plants?</li>
+        <li>How do I grow beans?</li>
+        <li>Why are my plant leaves turning yellow?</li>
+        <li>What is photosynthesis?</li>
+      </ul>
+      <p class="notice" style="color:#d8eadd">
+        The assistant's full AI capability becomes active when the approved
+        AI service is configured on the Python server.
+      </p>
     </div>
-    <div class="card">
-      <h2>🌡️ Temperature</h2>
-      <p>Plants have different temperature requirements.
-      Extreme conditions can affect growth.</p>
-    </div>
-    <div class="card">
-      <h2>🌾 Nutrients</h2>
-      <p>Nutrients such as nitrogen, phosphorus and potassium
-      support plant growth.</p>
+    <div class="chat">
+      <div class="chat-header">🌿 PHYTO-NET Assistant</div>
+      <div class="messages" id="messages">
+        <div class="message bot">Hello! I am PHYTO-NET's plant assistant. What would you like to learn about today?</div>
+      </div>
+      <form class="chat-form" onsubmit="sendQuestion(event)">
+        <input id="question" placeholder="Ask about any plant..." autocomplete="off">
+        <button class="primary" type="submit" id="sendButton">Send</button>
+      </form>
     </div>
   </div>
 </section>
 
-<!-- ASSISTANT -->
-<section id="assistant" class="page">
-  <h1>🤖 PHYTO-NET Plant Assistant</h1>
-  <div class="card">
-    <p>
-      This is an educational demonstration assistant.
-      It is not a real AI model and cannot diagnose every plant problem.
-    </p>
-    <div id="chatMessages" class="card">
-      <p><b>Assistant:</b> Hello! Ask me a basic question about plants.</p>
+<section class="section" id="device">
+  <div class="section-heading">
+    <div>
+      <h2>Smart plant monitoring</h2>
+      <p>Future connection point for the PHYTO-BILLY-2026 Arduino prototype.</p>
     </div>
-    <input id="question" placeholder="Ask about plants...">
-    <button onclick="askAssistant()">Send Question</button>
   </div>
-</section>
-
-<!-- MONITORING -->
-<section id="monitor" class="page">
-  <h1>📡 Smart Plant Monitoring</h1>
-  <div class="card">
-    <p>
-      Connect your Arduino UNO using USB.
-      Your Arduino program must send JSON data at 9600 baud.
-    </p>
-    <button onclick="connectArduino()">Connect Arduino</button>
-    <button onclick="disconnectArduino()">Disconnect</button>
-    <p id="connectionStatus" class="muted">Not connected.</p>
-  </div>
-
   <div class="grid">
-    <div class="card">
-      <h2>💧 Soil Moisture</h2>
-      <h1 id="soilValue">--</h1>
-    </div>
-    <div class="card">
-      <h2>🌡️ Temperature</h2>
-      <h1 id="temperatureValue">--</h1>
-    </div>
-    <div class="card">
-      <h2>💨 Humidity</h2>
-      <h1 id="humidityValue">--</h1>
-    </div>
+    <div class="card"><h3>🌱 Soil moisture</h3><p id="soilValue">Waiting for Arduino connection</p></div>
+    <div class="card"><h3>🌡 Temperature</h3><p id="temperatureValue">Waiting for Arduino connection</p></div>
+    <div class="card"><h3>💧 Water pump</h3><p id="pumpValue">Waiting for Arduino connection</p></div>
   </div>
-
-  <div class="card">
-    <h2>Arduino data</h2>
-    <p id="rawData" class="muted">Waiting for data...</p>
-  </div>
-</section>
-
-<!-- ABOUT -->
-<section id="about" class="page">
-  <h1>About PHYTO-NET</h1>
-  <div class="card">
-    <h2>Our mission</h2>
-    <p>
-      PHYTO-NET is a plant information and smart plant-care project.
-      It aims to combine technology, science and agriculture
-      to help people understand and care for plants.
-    </p>
-    <h2>PHYTO-BILLY-2026</h2>
-    <p>Project title: Phyto-Net Autonomous Cyber-Clinic.</p>
-    <p>
-      The physical prototype uses an Arduino UNO and sensors
-      to monitor plant conditions and support automatic irrigation.
-    </p>
-    <h2>Information sources</h2>
-    <p><a href="https://www.gbif.org/" target="_blank">GBIF</a></p>
-    <p><a href="https://www.inaturalist.org/" target="_blank">iNaturalist</a></p>
-  </div>
-</section>
-
-<!-- ACCOUNT -->
-<section id="account" class="page">
-  <h1>👤 PHYTO-NET Account</h1>
-  <div class="card">
-    <p>
-      Account sign-in is a preview only.
-      Real accounts require a secure authentication service.
-    </p>
-    <input type="email" placeholder="Email address">
-    <input type="password" placeholder="Password">
-    <button onclick="alert('Account sign-in is not activated yet. A secure authentication service is required.')">
-      Sign In
-    </button>
-    <button onclick="alert('Account registration is not activated yet.')">
-      Create Account
-    </button>
-  </div>
+  <p class="notice">The monitoring display is a future integration area. It does not yet connect to your Arduino or SIM module.</p>
 </section>
 
 </main>
 
-<footer>
-  <p>🌿 PHYTO-NET | PHYTO-BILLY-2026</p>
-  <p>Learning about plants through science and technology.</p>
+<footer class="footer">
+  <div class="footer-inner">
+    <div>
+      <div class="logo">PHYTO<span>-NET</span></div>
+      <p>Knowledge for healthier plants and a greener world.</p>
+    </div>
+    <div>
+      <b>About the project</b>
+      <p>PHYTO-NET is an educational plant knowledge platform<br>developed as part of PHYTO-BILLY-2026.</p>
+    </div>
+    <div>
+      <b>Learning with care</b>
+      <p>Always confirm serious crop problems with a qualified<br>agricultural adviser.</p>
+    </div>
+  </div>
 </footer>
 
+<div class="modal" id="articleModal" onclick="closeModalOutside(event)">
+  <div class="modal-content">
+    <button class="close" onclick="closeArticle()">Close ✕</button>
+    <div id="articleContent"></div>
+  </div>
+</div>
+
 <script>
-/* PAGE NAVIGATION */
-function showPage(page, button) {
-  document.querySelectorAll('.page').forEach(p => {
-    p.classList.remove('active');
-  });
+let plantData = {};
+let articleData = [];
+let rwandaData = [];
 
-  document.getElementById(page).classList.add('active');
+const plantImages = {
+  tomato:"https://images.unsplash.com/photo-1546094096-0df4bcaaa337?w=700",
+  maize:"https://images.unsplash.com/photo-1551754655-cd27e38d2076?w=700",
+  beans:"https://images.unsplash.com/photo-1515543904379-3d757afe72e4?w=700",
+  carrot:"https://images.unsplash.com/photo-1445282768818-728615cc910a?w=700",
+  potato:"https://images.unsplash.com/photo-1518977676601-b53f82aba655?w=700",
+  banana:"https://images.unsplash.com/photo-1571771894821-ce9b6c11b08e?w=700"
+};
 
-  document.querySelectorAll('nav button').forEach(b => {
-    b.classList.remove('active');
-  });
-
-  if(button) button.classList.add('active');
-
-  window.scrollTo(0,0);
+function toggleMenu(){
+  document.getElementById("navigation").classList.toggle("open");
+}
+function closeMenu(){
+  document.getElementById("navigation").classList.remove("open");
+}
+function toggleTheme(){
+  document.body.classList.toggle("dark");
+  localStorage.setItem("phytoTheme",document.body.classList.contains("dark")?"dark":"light");
+}
+if(localStorage.getItem("phytoTheme")==="dark"){
+  document.body.classList.add("dark");
 }
 
-/* THEME */
-function toggleTheme() {
-  document.body.classList.toggle('dark');
+async function loadData(){
+  try{
+    const [p,a,r]=await Promise.all([
+      fetch("/api/plants"),
+      fetch("/api/articles"),
+      fetch("/api/rwanda")
+    ]);
+    if(!p.ok||!a.ok||!r.ok) throw new Error("Could not load data");
+    plantData=await p.json();
+    articleData=await a.json();
+    rwandaData=await r.json();
+    document.getElementById("plantCount").textContent=Object.keys(plantData).length;
+    displayPlants(Object.keys(plantData));
+    displayArticles();
+    displayRwanda();
+  }catch(error){
+    document.getElementById("plantGrid").innerHTML=
+      '<p class="empty">Plant information could not load. Please refresh the page.</p>';
+  }
 }
 
-/* PLANT SEARCH USING GBIF */
-async function searchPlants() {
-  const query = document.getElementById('plantSearch').value.trim();
-  const results = document.getElementById('plantResults');
-  const status = document.getElementById('searchStatus');
-
-  document.getElementById('plantDetails').classList.add('hidden');
-
-  if(!query) {
-    status.textContent = 'Please enter a plant name.';
+function displayPlants(names){
+  const grid=document.getElementById("plantGrid");
+  if(!names.length){
+    grid.innerHTML='<p class="empty">No matching plants found.</p>';
     return;
   }
+  grid.innerHTML=names.map(name=>{
+    const p=plantData[name];
+    const image=plantImages[name]||"https://images.unsplash.com/photo-1497250681960-ef046c08a56e?w=700";
+    return `
+      <div class="card plant-card">
+        <img src="${image}" alt="${safe(name)} plant" loading="lazy">
+        <div class="plant-card-content">
+          <span class="tag">Plant profile</span>
+          <h3>${safe(name.charAt(0).toUpperCase()+name.slice(1))}</h3>
+          <p><i>${safe(p.scientific)}</i></p>
+          <p>${safe(p.description)}</p>
+          <button class="primary" onclick="showPlant('${safe(name)}')">Explore plant →</button>
+        </div>
+      </div>`;
+  }).join("");
+}
 
-  results.innerHTML = '';
-  status.textContent = 'Searching the plant database...';
+function filterPlants(){
+  const term=document.getElementById("librarySearch").value.toLowerCase().trim();
+  const matches=Object.keys(plantData).filter(name=>
+    name.includes(term)||plantData[name].scientific.toLowerCase().includes(term)
+  );
+  displayPlants(matches);
+}
 
-  try {
-    const url =
-      'https://api.gbif.org/v1/species/search?kingdomKey=6&rank=SPECIES&status=ACCEPTED&limit=20&q='
-      + encodeURIComponent(query);
+function searchPlant(){
+  const term=document.getElementById("mainSearch").value.toLowerCase().trim();
+  if(!term){alert("Please type a plant name.");return;}
+  const found=Object.keys(plantData).find(name=>
+    name===term||name.includes(term)||plantData[name].scientific.toLowerCase().includes(term)
+  );
+  document.getElementById("library").scrollIntoView();
+  if(found){
+    showPlant(found);
+  }else{
+    document.getElementById("plantResult").innerHTML=
+      `<div class="card"><h3>Plant not in the starter library</h3>
+      <p>Ask the AI assistant about ${safe(term)}. Its answer may cover plants beyond the starter library.</p>
+      <button class="primary" onclick="askAbout('${safe(term)}')">Ask AI about this plant</button></div>`;
+  }
+}
 
-    const response = await fetch(url);
-    if(!response.ok) throw new Error('Database request failed');
+document.getElementById("mainSearch").addEventListener("keydown",e=>{
+  if(e.key==="Enter")searchPlant();
+});
 
-    const data = await response.json();
+function showPlant(name){
+  const p=plantData[name];
+  if(!p)return;
+  const diseases=p.diseases.map(d=>`
+    <div class="disease">
+      <h4>${safe(d.name)}</h4>
+      <p><b>Symptoms:</b> ${safe(d.symptoms)}</p>
+      <p><b>Care and prevention:</b> ${safe(d.care)}</p>
+      <p><b>Treatment guidance:</b> ${safe(d.treatment)}</p>
+    </div>`).join("");
 
-    if(!data.results || data.results.length === 0) {
-      status.textContent = 'No matching plant species found.';
-      return;
-    }
+  document.getElementById("plantResult").innerHTML=`
+    <div class="card">
+      <span class="tag">Complete starter profile</span>
+      <h2>${safe(name.charAt(0).toUpperCase()+name.slice(1))}</h2>
+      <p><i>${safe(p.scientific)}</i></p>
+      <p>${safe(p.description)}</p>
+      <h3>Growing conditions</h3><p>${safe(p.conditions)}</p>
+      <h3>Benefits and nutrition</h3><p>${safe(p.benefits)}</p>
+      <h3>Common diseases</h3>${diseases}
+      <button class="primary" onclick="askAbout('${safe(name)}')">Ask AI for more information →</button>
+    </div>`;
+}
 
-    status.textContent = data.results.length + ' results found.';
+function displayArticles(){
+  document.getElementById("articleGrid").innerHTML=articleData.map((a,i)=>`
+    <div class="card article-card">
+      <small>${safe(a.category)}</small>
+      <h3>${safe(a.title)}</h3>
+      <p>${safe(a.body.slice(0,125))}...</p>
+      <button class="primary" onclick="openArticle(${i})">Read full article →</button>
+    </div>`).join("");
+}
 
-    data.results.forEach((plant,index) => {
-      const item = document.createElement('div');
-      item.className = 'result';
+function openArticle(index){
+  const a=articleData[index];
+  document.getElementById("articleContent").innerHTML=`
+    <span class="tag">${safe(a.category)}</span>
+    <h2>${safe(a.title)}</h2>
+    <p class="article-body">${safe(a.body)}</p>`;
+  document.getElementById("articleModal").style.display="block";
+}
+function closeArticle(){
+  document.getElementById("articleModal").style.display="none";
+}
+function closeModalOutside(event){
+  if(event.target.id==="articleModal")closeArticle();
+}
 
-      const name = document.createElement('h3');
-      name.textContent = plant.scientificName || plant.canonicalName || 'Unknown plant';
+function displayRwanda(){
+  document.getElementById("rwandaGrid").innerHTML=rwandaData.map(p=>`
+    <div class="card rwanda-card">
+      <span class="tag">Rwanda agriculture</span>
+      <h3>${safe(p.name)}</h3>
+      <p>${safe(p.detail)}</p>
+    </div>`).join("");
+}
 
-      const common = document.createElement('p');
-      common.textContent = 'Common name: ' + (plant.vernacularName || 'Not available');
+function safe(value){
+  return String(value).replace(/[&<>"']/g,ch=>({
+    "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"
+  }[ch]));
+}
 
-      const family = document.createElement('p');
-      family.textContent = 'Family: ' + (plant.family || 'Not available');
+function addMessage(text,type){
+  const messages=document.getElementById("messages");
+  const item=document.createElement("div");
+  item.className="message "+type;
+  item.textContent=text;
+  messages.appendChild(item);
+  messages.scrollTop=messages.scrollHeight;
+}
 
-      const button = document.createElement('button');
-      button.textContent = 'View plant details';
-      button.onclick = () => showPlantDetails(plant);
+async function sendQuestion(event){
+  event.preventDefault();
+  const input=document.getElementById("question");
+  const button=document.getElementById("sendButton");
+  const question=input.value.trim();
+  if(!question)return;
+  addMessage(question,"user");
+  input.value="";
+  button.disabled=true;
+  button.textContent="Thinking...";
+  const waiting=document.createElement("div");
+  waiting.className="message bot";
+  waiting.textContent="PHYTO-NET is preparing an answer...";
+  document.getElementById("messages").appendChild(waiting);
 
-      item.append(name,common,family,button);
-      results.appendChild(item);
+  try{
+    const response=await fetch("/api/ask",{
+      method:"POST",
+      headers:{"Content-Type":"application/json"},
+      body:JSON.stringify({question})
     });
-
-  } catch(error) {
-    status.textContent = 'Could not connect. Check your internet connection and try again.';
-  }
-}
-
-/* PLANT DETAILS */
-async function showPlantDetails(plant) {
-  const details = document.getElementById('plantDetails');
-  details.classList.remove('hidden');
-  details.innerHTML = '<h2>Loading plant information...</h2>';
-
-  const addInfo = (label,value) => {
-    const p = document.createElement('p');
-    p.textContent = label + ': ' + (value || 'Not available');
-    details.appendChild(p);
-  };
-
-  details.innerHTML = '<h2>' +
-    (plant.canonicalName || plant.scientificName || 'Plant details') +
-    '</h2>';
-
-  addInfo('Scientific name',plant.scientificName);
-  addInfo('Common name',plant.vernacularName);
-  addInfo('Family',plant.family);
-  addInfo('Genus',plant.genus);
-  addInfo('Order',plant.order);
-  addInfo('Class',plant.class);
-  addInfo('Kingdom',plant.kingdom);
-  addInfo('Taxonomic status',plant.taxonomicStatus);
-  addInfo('GBIF ID',plant.key);
-
-  const link = document.createElement('a');
-  link.href = 'https://www.gbif.org/species/' + plant.key;
-  link.target = '_blank';
-  link.textContent = 'Open full GBIF record';
-  details.appendChild(link);
-
-  const photoHeading = document.createElement('h3');
-  photoHeading.textContent = 'Plant photograph';
-  details.appendChild(photoHeading);
-
-  const photoText = document.createElement('p');
-  photoText.textContent = 'Searching for an available photograph...';
-  details.appendChild(photoText);
-
-  try {
-    const name = plant.canonicalName || plant.scientificName;
-    const response = await fetch(
-      'https://api.inaturalist.org/v1/taxa?q=' +
-      encodeURIComponent(name) + '&per_page=1'
-    );
-
-    const data = await response.json();
-    const photo = data.results?.[0]?.default_photo?.medium_url;
-
-    if(photo) {
-      const img = document.createElement('img');
-      img.src = photo;
-      img.alt = 'Photograph of ' + name;
-      img.className = 'plant-image';
-      details.insertBefore(img,photoHeading);
-      photoText.textContent = 'Photograph provided by iNaturalist.';
-    } else {
-      photoText.textContent = 'No photograph is available.';
+    const data=await response.json();
+    waiting.textContent=data.answer||"No answer was returned.";
+    if(data.mode==="demonstration"){
+      waiting.textContent+="\n\n[Demonstration mode: connect the approved AI service to activate real AI.]";
     }
-  } catch(error) {
-    photoText.textContent = 'Photograph could not be loaded.';
-  }
-
-  details.scrollIntoView({behavior:'smooth'});
-}
-
-/* EDUCATIONAL ASSISTANT DEMO */
-function askAssistant() {
-  const input = document.getElementById('question');
-  const chat = document.getElementById('chatMessages');
-  const question = input.value.trim().toLowerCase();
-
-  if(!question) return;
-
-  const user = document.createElement('p');
-  user.textContent = 'You: ' + input.value;
-  chat.appendChild(user);
-
-  let answer =
-    'I am a basic educational assistant. Try asking about water, sunlight, soil, or photosynthesis.';
-
-  if(question.includes('water'))
-    answer = 'Plants need water for photosynthesis and transport of nutrients. Water needs differ between species.';
-
-  else if(question.includes('sun'))
-    answer = 'Sunlight provides energy for photosynthesis. Different plants need different light conditions.';
-
-  else if(question.includes('soil'))
-    answer = 'Soil provides support, water, air and nutrients to plant roots.';
-
-  else if(question.includes('photosynthesis'))
-    answer = 'Photosynthesis is the process by which green plants use light energy to make sugars from water and carbon dioxide.';
-
-  else if(question.includes('tomato'))
-    answer = 'Tomato is a flowering plant commonly grown for its edible fruits. It needs suitable sunlight, water and nutrients.';
-
-  else if(question.includes('maize'))
-    answer = 'Maize is a cereal crop. It grows best with suitable soil, water, sunlight and nutrients.';
-
-  const reply = document.createElement('p');
-  reply.textContent = 'Assistant: ' + answer;
-  chat.appendChild(reply);
-
-  input.value = '';
-  chat.scrollTop = chat.scrollHeight;
-}
-
-/* ARDUINO USB SERIAL MONITOR */
-let serialPort = null;
-let reader = null;
-let keepReading = false;
-
-async function connectArduino() {
-  if(!('serial' in navigator)) {
-    alert('Web Serial is not supported in this browser. Try a recent version of Chrome or Edge.');
-    return;
-  }
-
-  try {
-    serialPort = await navigator.serial.requestPort();
-    await serialPort.open({baudRate:9600});
-
-    document.getElementById('connectionStatus').textContent =
-      'Arduino connected. Waiting for data...';
-
-    keepReading = true;
-    readArduino();
-
-  } catch(error) {
-    document.getElementById('connectionStatus').textContent =
-      'Connection failed: ' + error.message;
+  }catch(error){
+    waiting.textContent="I could not connect to the server. Please try again.";
+  }finally{
+    button.disabled=false;
+    button.textContent="Send";
   }
 }
 
-async function readArduino() {
-  const decoder = new TextDecoder();
-  let buffer = '';
-
-  try {
-    while(serialPort && serialPort.readable && keepReading) {
-      reader = serialPort.readable.getReader();
-
-      try {
-        while(keepReading) {
-          const {value,done} = await reader.read();
-          if(done) break;
-
-          buffer += decoder.decode(value,{stream:true});
-
-          let lines = buffer.split('\n');
-          buffer = lines.pop();
-
-          for(const line of lines) {
-            processArduinoData(line.trim());
-          }
-        }
-      } finally {
-        reader.releaseLock();
-        reader = null;
-      }
-    }
-  } catch(error) {
-    document.getElementById('connectionStatus').textContent =
-      'Reading stopped: ' + error.message;
-  }
+function askAbout(name){
+  document.getElementById("question").value=
+    `Tell me detailed information about ${name}, including its growing conditions, common diseases, symptoms, prevention and safe treatment options.`;
+  document.getElementById("assistant").scrollIntoView();
+  document.getElementById("question").focus();
 }
 
-function processArduinoData(line) {
-  if(!line) return;
-
-  try {
-    const data = JSON.parse(line);
-
-    if(data.soil !== undefined)
-      document.getElementById('soilValue').textContent = data.soil;
-
-    if(data.temperature !== undefined)
-      document.getElementById('temperatureValue').textContent =
-        data.temperature + ' °C';
-
-    if(data.humidity !== undefined)
-      document.getElementById('humidityValue').textContent =
-        data.humidity + ' %';
-
-    document.getElementById('rawData').textContent = line;
-
-  } catch(error) {
-    document.getElementById('rawData').textContent =
-      'Received data: ' + line;
-  }
-}
-
-async function disconnectArduino() {
-  keepReading = false;
-
-  try {
-    if(reader) await reader.cancel();
-    if(serialPort) await serialPort.close();
-  } catch(error) {
-    console.log(error);
-  }
-
-  reader = null;
-  serialPort = null;
-
-  document.getElementById('connectionStatus').textContent =
-    'Arduino disconnected.';
-}
-
-/* ENTER KEY SEARCH */
-document.getElementById('plantSearch').addEventListener('keydown',e => {
-  if(e.key === 'Enter') searchPlants();
-});
-
-document.getElementById('question').addEventListener('keydown',e => {
-  if(e.key === 'Enter') askAssistant();
-});
+loadData();
 </script>
-
 </body>
 </html>
